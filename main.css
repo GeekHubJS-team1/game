@@ -1,0 +1,10 @@
+table{
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: calc(128px * 50);
+}
+table td {
+  width: 128px;
+  height: 128px;
+  background-size: cover;
+}
