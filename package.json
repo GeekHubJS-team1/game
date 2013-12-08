@@ -2,9 +2,9 @@
   "name": "game",
   "version": "0.0.1",
   "dependencies": {
-    "express": "*",
+    "express": "*"
   },
   "devDependencies": {
-    "pngjs": "*",
+    "pngjs": "*"
   }
 }
