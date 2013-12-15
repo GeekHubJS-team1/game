@@ -1,0 +1,192 @@
+/*----------------------------------------------------------------------------------*/
+/*------------------------------RESET DEFAULT STYLES--------------------------------*/
+/*----------------------------------------------------------------------------------*/
+html, body {
+    width: 100%;
+}
+
+body {
+    padding: 0;
+    font-size: 12px;
+    font-family: 'PFAgoraSlabPro-Regular', sans-serif;
+    background: #fff;
+    color: #000;
+    margin: 0 auto;
+}
+
+div, p, a, span, em, strong, img, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, td, tr, form, fieldset, label, select, input, textarea {
+    padding: 0;
+    margin: 0;
+    outline: none;
+    list-style: none;
+}
+
+select, input, textarea {
+    font-size: 12px;
+    font-family: 'PFAgoraSlabPro-Regular', sans-serif;
+    vertical-align: middle;
+}
+
+textarea {
+    vertical-align: top;
+}
+
+:focus {
+    outline: none;
+}
+
+input[type=button] {
+    cursor: pointer;
+}
+
+img, fieldset {
+    border: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a:link, a:visited {
+    font-size: 12px;
+    font-family: 'PFAgoraSlabPro-Regular', sans-serif;
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+/*----------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------*/
+.wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+.header {
+    overflow: hidden;
+    background: #8acbcc;
+    -webkit-box-shadow: 0 -20px 20px #ccc inset;
+    -moz-box-shadow: 0 -20px 20px #ccc inset;
+    box-shadow: 0 -20px 20px #ccc inset;
+    padding: 10px 0;
+}
+.header h2.userInf {
+    margin: 0 100px 0 0;
+    padding: 0 0 0 20px;
+    float: left;
+    overflow: hidden;
+}
+.header h2 span {
+    display: block;
+}
+.header .haveItem {
+    float: left;
+    overflow: hidden;
+    /*position: relative;*/
+    /*padding: 0 35px;*/
+    /*width: 290px;*/
+    /*margin: 0 auto;*/
+}
+.header .haveItem h3 {
+    text-align: center;
+    margin: 0 0 10px 0;
+}
+.header .haveItem ul {
+    overflow: hidden;
+}
+.header .haveItem li:first-child {
+    margin: 0;
+}
+/*.header .haveItem a.control {*/
+    /*background: url("./../images/leftArrow.png");*/
+    /*position: absolute;*/
+    /*top: 35%;*/
+    /*display: block;*/
+    /*width: 32px;*/
+    /*height: 32px;*/
+    /*text-indent: -500px;*/
+    /*overflow: hidden;*/
+/*}*/
+/*.header .haveItem a.left {*/
+    /*background: url("./../images/leftArrow.png") no-repeat;*/
+    /*left: 0;*/
+/*}*/
+/*.header .haveItem a.right {*/
+    /*background: url("./../images/rightArrow.png") no-repeat;*/
+    /*right: 0;*/
+/*}*/
+.header .haveItem li {
+    float: left;
+    border: 1px solid #000;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin: 0 0 0 10px;
+    padding: 3px;
+    cursor: pointer;
+}
+.header .chatButton, .header .logOutButton {
+    display: block;
+    float: right;
+    margin: 15px 50px 0 0;
+}
+.content {
+    overflow: hidden;
+}
+.content .chat {
+    width: 220px;
+    float: right;
+    background: #8acbcc;
+    padding: 10px;
+    margin: 10px 0 0 0;
+    -webkit-border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
+}
+.content .chat  h2 {
+    position: relative;
+    line-height: 30px;
+}
+.content .chat  h2 a.close {
+    background: url("./../images/close.png") no-repeat;
+    display: block;
+    width: 32px;
+    height: 32px;
+    text-indent: -200px;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.content .chat .text {
+    border: 1px solid #000;
+    min-height: 150px;
+    max-height: 250px;
+    overflow-y: scroll;
+    background: #ccc;
+    margin: 0 0 5px 0;
+}
+.content form label {
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+}
+.content form input[type="submit"] {
+    background: #003333;
+    -webkit-box-shadow: 0 5px 0 #000;
+    -moz-box-shadow: 0 5px 0 #000;
+    box-shadow: 0 5px 0 #000;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 0;
+    color: #fff;
+    font-size: 15px;
+    line-height: 20px;
+    width: 100px;
+    margin: 10px 0;
+    cursor: pointer;
+}
