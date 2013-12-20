@@ -1,0 +1,25 @@
+{
+  "name": "game",
+  "version": "0.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "express": "*",
+    "pngjs": "*",
+    "socket.io": "*",
+    "async": "*",
+    "session.socket.io": "*"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/game4geeks/game.git"
+  },
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/game4geeks/game/issues"
+  }
+}

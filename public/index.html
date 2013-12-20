@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+<body>
+  <div id="login">
+    <span id="login-err"></span>
+    <form>
+      <label><input type="text" name="login" placeholder="Login"/></label>
+      <label><input type="password" name="pass" placeholder="Password"/></label>
+      <button>Login</button>
+    </form>
+  </div>
+  <div id="main">
+    <h2>Hello, </h2>
+    <div id="chat"></div>
+    <input type="text" placeholder="Message..."/>
+    <button>Send</button>
+  </div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/main.js"></script>
+</body>
+</html>
