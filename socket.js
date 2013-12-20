@@ -4,11 +4,11 @@ module.exports = function(server, cookieParser, sessionStore) {
   var sessionSockets = new SessionSockets(io, sessionStore, cookieParser);
 
   sessionSockets.on('connection', function (err, socket, session) {
-    if (!session.user) {
+    if ('user' in session) {
+      socket.emit('login:success', session.user);
+    } else {
       socket.emit('login:unauthorized');
       socket.disconnect();
-    } else {
-      socket.emit('login:success', session.user);
     }
     socket.on('chat', function (message) {
       socket.broadcast.emit('chat', {user: session.user, message: message});
