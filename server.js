@@ -42,8 +42,16 @@ app.post('/login', function (req, res) {
   req.session.user = login;
   res.send('ok');
 });
+app.get('/logout', function (req, res) {
+  req.session.destroy();
+  res.redirect('/');
+});
 
-var server = http.createServer(app).listen(8000);
+var server = http.createServer(app);
 
 var io = require('./socket')(server, cookieParser, sessionStore);
 app.set('io', io);
+
+server.listen(8000, function() {
+  console.log('Server listening on port ' + 8000);
+});

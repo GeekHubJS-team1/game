@@ -1,6 +1,9 @@
-body>div {
+#login {
   display: none;
 }
 #login-err {
   color: red;
+}
+#logout {
+  float:right;
 }
