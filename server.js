@@ -52,6 +52,8 @@ var server = http.createServer(app);
 var io = require('./socket')(server, cookieParser, sessionStore);
 app.set('io', io);
 
+require('./game')(app);
+
 server.listen(8000, function() {
   console.log('Server listening on port ' + 8000);
 });
