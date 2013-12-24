@@ -7,10 +7,11 @@ html, body {
 
 body {
     padding: 0;
+    /*padding: 85px 0 0 0;*/
     font-size: 12px;
-    font-family: 'Candara', sans-serif;
-    background: #fff;
+    font-family: 'PressStart2P', sans-serif;
     color: #000;
+    background: url("./../images/bg.png");
     margin: 0 auto;
 }
 
@@ -23,7 +24,7 @@ div, p, a, span, em, strong, img, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd
 
 select, input, textarea {
     font-size: 12px;
-    font-family: 'Candara', sans-serif;
+    font-family: 'PressStart2P', sans-serif;
     vertical-align: middle;
 }
 
@@ -50,7 +51,7 @@ table {
 
 a:link, a:visited {
     font-size: 12px;
-    font-family: 'Candara', sans-serif;
+    font-family: 'PressStart2P', sans-serif;
     color: #000;
     text-decoration: none;
 }
@@ -58,6 +59,21 @@ a:link, a:visited {
 a:hover {
     text-decoration: none;
 }
+@font-face {
+    font-family: 'PressStart2P';
+    src: url('./../font/PressStart2P.ttf'),
+    url('./../font/PressStart2P.woff'),
+    url('./../font/PressStart2P.eot'),
+    url('./../font/PressStart2P.svg');
+}
+@font-face {
+    font-family: 'SilkScreen';
+    src: url('./../font/SilkScreen.ttf'),
+    url('./../font/SilkScreen.woff'),
+    url('./../font/SilkScreen.eot'),
+    url('./../font/SilkScreen.svg');
+}
+
 /*----------------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------------*/
@@ -65,128 +81,329 @@ a:hover {
     max-width: 1400px;
     margin: 0 auto;
 }
+/* Header BEGIN*/
+
 .header {
     overflow: hidden;
-    background: #8acbcc;
-    -webkit-box-shadow: 0 -20px 20px #ccc inset;
-    -moz-box-shadow: 0 -20px 20px #ccc inset;
-    box-shadow: 0 -20px 20px #ccc inset;
+    background: #292929;
+    /*background-color: rgba(41, 41, 41, 0.7);*/
+    border-bottom: 4px solid #1e1e1e;
+    height: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.header h1 {
+    border-right: 1px dotted #505555;
+    width: 120px;
+    float: left;
+    overflow: hidden;
+    height: 100%;
+}
+.header h1 a {
+    display: block;
+    text-transform: uppercase;
+    font-weight: normal;
+    text-align: center;
+    color: #8ad3d6;
+    letter-spacing: 2px;
+    font-size: 15px;
+    padding: 15px 0;
+}
+.header h1 .orange {
+    color: #eb6a2b;
+}
+.header h1 .brown {
+    color: #c69c6d;
+}
+.header h1 .yellow {
+    color: #fff568;
+}
+.header h1 .for {
+    color: #eb6a2b;
+    display: block;
+    font-family: "Lobster Two", sans-serif;
+    text-transform: none;
+    font-weight: bold;
+    -webkit-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+    margin: 0 0 5px 0;
+}
+.header .user {
+    overflow: hidden;
+    border-right: 1px dotted #505555;
+    padding: 0 25px;
+    width: 200px;
+    height: 100%;
+    float: left;
+    color: #8ad3d6;
+}
+.header .user img {
+    float: left;
+    margin: 10px 15px 0 0;
+}
+.header .user .level {
+    display: block;
+    float: left;
+    margin: 20px 0 15px 0;
+}
+.header .user .name {
+    color: #fff;
+}
+.header .items {
+    float: left;
+    border-right: 1px dotted #505555;
+    overflow: hidden;
+    height: 100%;
+    padding: 0 30px;
+    margin: 0 20px 0 0;
+}
+.header .items h2 {
+    color: #f5eb65;
+    font-weight: normal;
+    font-size: 14px;
+    text-align: center;
     padding: 10px 0;
 }
-.header h2.userInf {
-    margin: 0 100px 0 0;
-    padding: 0 0 0 20px;
-    float: left;
+.header .items .numItems {
+    color: #eb6a2b;
+    width: 30px;
+    display: inline-block;
+}
+.header .items .wrapItems {
+    position: relative;
+}
+.header .items ul {
     overflow: hidden;
+    margin: 0 auto;
+    width: 233px;
 }
-.header h2 span {
-    display: block;
-}
-.header .haveItem {
-    float: left;
-    overflow: hidden;
-    /*position: relative;*/
-    /*padding: 0 35px;*/
-    /*width: 290px;*/
-    /*margin: 0 auto;*/
-}
-.header .haveItem h3 {
-    text-align: center;
-    margin: 0 0 10px 0;
-}
-.header .haveItem ul {
-    overflow: hidden;
-}
-.header .haveItem li:first-child {
+.header .items li:first-child {
     margin: 0;
 }
-/*.header .haveItem a.control {*/
-    /*background: url("./../images/leftArrow.png");*/
-    /*position: absolute;*/
-    /*top: 35%;*/
-    /*display: block;*/
-    /*width: 32px;*/
-    /*height: 32px;*/
-    /*text-indent: -500px;*/
-    /*overflow: hidden;*/
-/*}*/
-/*.header .haveItem a.left {*/
-    /*background: url("./../images/leftArrow.png") no-repeat;*/
-    /*left: 0;*/
-/*}*/
-/*.header .haveItem a.right {*/
-    /*background: url("./../images/rightArrow.png") no-repeat;*/
-    /*right: 0;*/
-/*}*/
-.header .haveItem li {
+.header .items li {
     float: left;
-    border: 1px solid #000;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    margin: 0 0 0 10px;
-    padding: 3px;
+    margin: 0 0 0 5px;
     cursor: pointer;
 }
-.header .chatButton, .header .logOutButton {
+.header .items li img {
+    border: 1px solid #fff568;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.header .items .controlDisable {
+    background: url("./../images/arrows/disableControls.png") no-repeat !important;;
+}
+.header .items .control {
+    background: url("./../images/arrows/enableControls.png") no-repeat;
     display: block;
-    float: right;
-    margin: 15px 50px 0 0;
-}
-.content {
-    overflow: hidden;
-}
-.content .chat {
-    width: 220px;
-    float: right;
-    background: #8acbcc;
-    padding: 10px;
-    margin: 10px 0 0 0;
-    -webkit-border-radius: 5px 0 0 5px;
-    -moz-border-radius: 5px 0 0 5px;
-    border-radius: 5px 0 0 5px;
-}
-.content .chat  h2 {
-    position: relative;
-    line-height: 30px;
-}
-.content .chat  h2 a.close {
-    background: url("./../images/close.png") no-repeat;
-    display: block;
-    width: 32px;
-    height: 32px;
+    width: 10px;
+    height: 18px;
     text-indent: -200px;
     overflow: hidden;
     position: absolute;
-    right: 0;
-    top: 0;
+    top: 30%;
 }
-.content .chat .text {
-    border: 1px solid #000;
-    min-height: 150px;
-    max-height: 250px;
+.header .items .left {
+    left: 0;
+}
+.header .items .right {
+    background-position: -10px 0;
+    right: 0;
+}
+.header .chatButton {
+    background: url("./../images/chatIcon.png") left center no-repeat;
+    overflow: hidden;
+    display: block;
+    color: #fff568;
+    text-transform: uppercase;
+    padding: 35px 0 35px 30px;
+    float: left;
+}
+.header .chatButton .numOnline {
+    width: 50px;
+    display: inline-block;
+    text-align: center;
+    color: #ce5f2b;
+}
+.header .logOut {
+    background: url("./../images/logOutIcon.png") left center no-repeat;
+    color: #8ad3d6;
+    text-transform: uppercase;
+    overflow: hidden;
+    display: block;
+    float: right;
+    padding: 35px 0 35px 30px;
+    margin: 0 40px 0 0;
+}
+
+/* Header END*/
+
+/* Chat BEGIN*/
+
+.chat {
+    background: #292929;
+    width: 300px;
+    height: 100%;
+    padding: 20px 0;
+    overflow: hidden;
+    position: fixed;
+    top: 84px;
+    right: 0;
+    background: rgba(41, 41, 41, 0.7);
+}
+.chat h3 {
+    color: #eb6a2b;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 18px;
+    font-family: "SilkScreen", sans-serif;
+}
+.chat h3.me {
+    color: #8ad2d5;
+    margin: 10px 0;
+}
+.chat ul {
+    padding: 0 20px;
+    overflow: hidden;
+    height: 45%;
     overflow-y: scroll;
-    background: #ccc;
+}
+.chat li {
+    overflow: hidden;
+    margin: 0 0 15px 0;
+}
+.chat li h3 {
+    float: left;
     margin: 0 0 5px 0;
 }
-.content form label {
-    display: block;
-    font-size: 15px;
-    font-weight: bold;
+.chat li .date {
+    font-family: "SilkScreen", sans-serif;
+    float: right;
+    font-size: 14px;
+    color: #a0a0a0;
 }
-.content form input[type="submit"] {
-    background: #003333;
-    -webkit-box-shadow: 0 5px 0 #000;
-    -moz-box-shadow: 0 5px 0 #000;
-    box-shadow: 0 5px 0 #000;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    border: 0;
+.chat li p {
     color: #fff;
-    font-size: 15px;
-    line-height: 20px;
-    width: 100px;
-    margin: 10px 0;
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+    clear: both;
+}
+.chat fieldset {
+    border-top: 1px dotted #000;
+    padding: 0 20px;
+    position: absolute;
+    bottom: 135px;
+    left: 0;
+}
+.chat fieldset textarea {
+    width: 255px;
+    height: 120px;
+    margin: 0 0 10px 0;
+    padding: 5px;
+    font-family: "Open Sans", sans-serif;
+}
+.chat fieldset input[type="submit"] {
+    background: #eb6a2b;
+    border: 0;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 5px 10px;
     cursor: pointer;
+}
+
+/* Chat END*/
+
+/* Messages */
+.info {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+.info li:first-child {
+    margin: 0;
+}
+.info li {
+    margin: 15px 0 0 0;
+    position: relative;
+}
+.message {
+    padding: 30px;
+    background: rgba(41, 41, 41, 0.7);
+    width: 260px;
+    height: 60px;
+}
+.message h3 {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: center;
+    color: #fff;
+    margin: 0 0 20px 0;
+}
+.message p {
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+}
+
+.message .close {
+    background: url("./../images/close.png") no-repeat;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 9px;
+    height: 9px;
+    text-indent: -200px;
+    overflow: hidden;
+}
+
+/* Game over */
+
+.gameOver {
+}
+.gameOver h3 span {
+    color: #eb6a2b;
+}
+.gameOver ul {
+    overflow: hidden;
+    width: 135px;
+    margin: 0 auto;
+}
+.gameOver li:first-child {
+    margin: 0;
+}
+.gameOver li {
+    float: left;
+    overflow: hidden;
+    margin: 0 0 0 10px;
+}
+.gameOver li a {
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #fff;
+    padding: 5px 10px;
+    display: block;
+}
+.gameOver li.again a {
+    background: #eb6a2b;
+}
+.gameOver li.exit a {
+    background: #292929;
+}
+
+/* Find an item */
+
+.findItem h3 span {
+    color: #8ad2d5;
+}
+.findItem p {
+    text-align: center;
 }
