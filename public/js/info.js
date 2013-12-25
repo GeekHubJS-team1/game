@@ -33,7 +33,7 @@ $(document).ready(function() {
         if ($(this).hasClass('right')) {
             if (!$(this).hasClass('controlDisable')) {
                 marginSlider = parseInt($slider.css('margin-left'));
-                $slider.animate({'margin-left': marginSlider-39+"px"}, 200);
+                $slider.css({'margin-left': marginSlider-39+"px"});
             }
 //        disable right button when the we've seen all items
             if (marginSlider === -($slider.find('li').size()-sliderVisible-1)*39) {
@@ -48,7 +48,7 @@ $(document).ready(function() {
 //        move slider to the right side
             if (!$(this).hasClass('controlDisable')) {
                 marginSlider = parseInt($slider.css('margin-left'));
-                $slider.animate({'margin-left': marginSlider+39+"px"}, 200);
+                $slider.css({'margin-left': marginSlider+39+"px"});
             }
 //        disable right button when the we've seen all items
             if (marginSlider === -39) {
@@ -65,25 +65,25 @@ $(document).ready(function() {
     var $chatBlock = $('.chat'), width = $chatBlock.width();
     $('.chatButton').on('click', function() {
         if (parseInt($chatBlock.css('right')) === 0) {
-            $chatBlock.css({'right' : -width+'px'}, 500);
+            $chatBlock.css({'right' : -width+'px'});
         }
         else {
-            $chatBlock.css({'right' : '0px'}, 500);
+            $chatBlock.css({'right' : '0px'});
         }
     });
     $chatBlock.find('.close').on('click', function() {
         $chatBlock = $(this).parent();
         if (parseInt($chatBlock.css('right')) === 0) {
-            $chatBlock.css({'right' : -width+'px'}, 500);
+            $chatBlock.css({'right' : -width+'px'});
         }
     });
 
 //  Log in block
     var $logIn = $('.logIn');
     $logIn.find('#logIn').click(function() {
-
         // here should be condition to fade In this block - if user exists and login and password are correct
         $logIn.fadeOut(1000);
+        return false;
     });
 //    $logIn.fadeIn()
 
