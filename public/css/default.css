@@ -271,6 +271,7 @@ a:hover {
     font-weight: normal;
     font-size: 18px;
     font-family: "SilkScreen", sans-serif;
+    margin: 5px 0;
 }
 .chat h3 .me {
     color: #8ad2d5;
