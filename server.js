@@ -17,8 +17,8 @@ app.configure(function () {
 });
 
 app.post('/login', function (req, res) {
-  var login = req.body.login;
-  var pass = req.body.pass;
+  var login = req.body.username;
+  var pass = req.body.password;
   if (!login || !pass) {
     return res.send('Send login and password');
   }

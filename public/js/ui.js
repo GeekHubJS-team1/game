@@ -77,14 +77,4 @@ $(document).ready(function() {
             $chatBlock.css({'right' : -width+'px'});
         }
     });
-
-//  Log in block
-    var $logIn = $('.logIn');
-    $logIn.find('#logIn').click(function() {
-        // here should be condition to fade In this block - if user exists and login and password are correct
-        $logIn.fadeOut(1000);
-        return false;
-    });
-//    $logIn.fadeIn()
-
 });

@@ -272,9 +272,11 @@ a:hover {
     font-size: 18px;
     font-family: "SilkScreen", sans-serif;
 }
-.chat h3.me {
+.chat h3 .me {
     color: #8ad2d5;
-    margin: 10px 0;
+}
+.chat h3 .state {
+    color: #fff;
 }
 .chat ul {
     padding: 0 20px;
