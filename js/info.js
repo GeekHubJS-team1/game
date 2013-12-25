@@ -65,16 +65,26 @@ $(document).ready(function() {
     var $chatBlock = $('.chat'), width = $chatBlock.width();
     $('.chatButton').on('click', function() {
         if (parseInt($chatBlock.css('right')) === 0) {
-            $chatBlock.animate({'right' : -width+'px'}, 500);
+            $chatBlock.css({'right' : -width+'px'}, 500);
         }
         else {
-            $chatBlock.animate({'right' : '0px'}, 500);
+            $chatBlock.css({'right' : '0px'}, 500);
         }
     });
     $chatBlock.find('.close').on('click', function() {
         $chatBlock = $(this).parent();
         if (parseInt($chatBlock.css('right')) === 0) {
-            $chatBlock.animate({'right' : -width+'px'}, 500);
+            $chatBlock.css({'right' : -width+'px'}, 500);
         }
     });
+
+//  Log in block
+    var $logIn = $('.logIn');
+    $logIn.find('#logIn').click(function() {
+
+        // here should be condition to fade In this block - if user exists and login and password are correct
+        $logIn.fadeOut();
+    });
+//    $logIn.fadeIn()
+
 });
