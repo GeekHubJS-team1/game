@@ -177,10 +177,13 @@ a:hover {
 .header .items .wrapItems {
     position: relative;
 }
-.header .items ul {
+.header .items .wrapSlider {
     overflow: hidden;
     margin: 0 auto;
     width: 233px;
+}
+.header .items ul {
+    width: 1000px;
 }
 .header .items li:first-child {
     margin: 0;
@@ -213,7 +216,7 @@ a:hover {
     left: 0;
 }
 .header .items .right {
-    background-position: -10px 0;
+    background-position: -10px 0 !important;
     right: 0;
 }
 .header .chatButton {
@@ -250,11 +253,11 @@ a:hover {
     background: #292929;
     width: 300px;
     height: 100%;
-    padding: 20px 0;
+    padding: 25px 0;
     overflow: hidden;
     position: fixed;
     top: 84px;
-    right: 0;
+    right: -300px;
     background: rgba(41, 41, 41, 0.7);
 }
 .chat h3 {
@@ -272,7 +275,7 @@ a:hover {
     padding: 0 20px;
     overflow: hidden;
     height: 45%;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 .chat li {
     overflow: hidden;
@@ -298,7 +301,7 @@ a:hover {
     border-top: 1px dotted #000;
     padding: 0 20px;
     position: absolute;
-    bottom: 135px;
+    bottom: 140px;
     left: 0;
 }
 .chat fieldset textarea {
@@ -317,6 +320,16 @@ a:hover {
     padding: 5px 10px;
     cursor: pointer;
 }
+.chat .close {
+     background: url("./../images/close.png") no-repeat;
+     position: absolute;
+     top: 10px;
+     right: 10px;
+     width: 9px;
+     height: 9px;
+     text-indent: -200px;
+     overflow: hidden;
+ }
 
 /* Chat END*/
 
@@ -338,6 +351,7 @@ a:hover {
     background: rgba(41, 41, 41, 0.7);
     width: 260px;
     height: 60px;
+    display: none;
 }
 .message h3 {
     text-transform: uppercase;
