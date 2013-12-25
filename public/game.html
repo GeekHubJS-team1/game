@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./css/default.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+    <div class="header">
+            <h1>
+                <a href="#">
+                    G<span class="orange">a</span><span class="brown">m</span><span class="yellow">e</span>
+                    <span class="for">—for—</span> geeks
+                </a>
+            </h1>
+        <div class="user">
+            <img src="./images/user.jpg" alt="user image"/>
+            <span class="level">Level <span class="numLevel">3</span></span>
+            <span class="name">User</span>
+        </div>
+        <div class="items">
+            <h2>You have <span class="numItems">8</span>/10 items</h2>
+            <div class="wrapItems">
+                <a href="#" class="control left controlDisable">left button</a>
+                <div class="wrapSlider">
+                    <ul>
+                        <li>
+                            <img src="./images/items/small/banana.png" alt="banana"/>
+                        </li>
+                        <li>
+                            <img src="./images/items/small/apple.png" alt="apple"/>
+                        </li>
+                        <li>
+                            <img src="./images/items/small/apple.png" alt="apple"/>
+                        </li>
+                        <li>
+                            <img src="./images/items/small/shield.png" alt="shield"/>
+                        </li>
+                        <li>
+                            <img src="./images/items/small/shield.png" alt="shield"/>
+                        </li>
+                        <li>
+                            <img src="./images/items/small/medicine.png" alt="medicine"/>
+                        </li>
+                        <li>
+                            <img src="./images/items/small/shield.png" alt="shield"/>
+                        </li>
+                        <li>
+                            <img src="./images/items/small/medicine.png" alt="medicine"/>
+                        </li>
+                    </ul>
+                </div>
+                <a href="#" class="control right">right button</a>
+            </div>
+        </div>
+        <a href="#" class="chatButton">
+            <span class="numOnline">7</span> users are online
+        </a>
+        <a href="#" class="logOut">Log out</a>
+    </div>
+    <div class="chat">
+        <ul>
+            <li>
+                <h3>User 1</h3>
+                <span class="date">22:04:12</span>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua. Ut enim ad minim veniam.
+                </p>
+            </li>
+        </ul>
+        <fieldset>
+            <h3 class="me">User</h3>
+            <form action="#">
+                <label for="textMessage"></label>
+                <textarea name="message" id="textMessage" cols="30" rows="10"></textarea>
+                <input type="submit" value="Send" />
+            </form>
+        </fieldset>
+        <a href="#" class="close">close</a>
+    </div>
+    <ul class="info">
+        <li class="message gameOver">
+            <h3><span>Game over</span> try again?</h3>
+            <ul>
+                <li class="again"><a href="#">Yes</a></li>
+                <li class="exit"><a href="#">No way</a></li>
+            </ul>
+            <a href="#" class="close">close</a>
+        </li>
+        <li class="message findItem">
+            <h3><span>User</span> find an item</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+            </p>
+            <a href="#" class="close">close</a>
+        </li>
+    </ul>
+    <div class="logIn">
+        <h2>
+            G<span class="orange">a</span><span class="brown">m</span><span class="yellow">e</span>
+            <span class="for">—for—</span> geeks
+        </h2>
+        <fieldset>
+            <form action="#">
+                <h3>Log In</h3>
+                <ul>
+                    <li>
+                        <label for="username">username</label>
+                        <input type="text" id="username" />
+                    </li>
+                    <li>
+                        <label for="password">password</label>
+                        <input type="password" id="password" />
+                    </li>
+                    <li>
+                        <input type="submit" value="Log in" id="logIn" />
+                    </li>
+                </ul>
+            </form>
+        </fieldset>
+    </div>
+    <script type="text/javascript" src="./vendor/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="./js/info.js"></script>
+</body>
+</html>
