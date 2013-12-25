@@ -83,7 +83,7 @@ $(document).ready(function() {
     $logIn.find('#logIn').click(function() {
 
         // here should be condition to fade In this block - if user exists and login and password are correct
-        $logIn.fadeOut();
+        $logIn.fadeOut(1000);
     });
 //    $logIn.fadeIn()
 
