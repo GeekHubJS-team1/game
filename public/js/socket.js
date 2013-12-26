@@ -4,7 +4,7 @@
 
   function sendMessage(e) {
     e.preventDefault();
-    var $textarea = $('.chat textarea')
+    var $textarea = $('.chat textarea');
     var text = $textarea.val();
     socket.emit('chat', text);
     $textarea.val('');
@@ -58,6 +58,7 @@
     }
   });
   $('#logIn').on('click', function (e) {
+    var $errorField = $('p.error');
     e.preventDefault();
     var xhr = new XMLHttpRequest();
     var form = $(this).closest('form')[0];
@@ -69,7 +70,8 @@
         socket.disconnect();
         socket.socket.connect();
       } else {
-        console.log(data);
+          $errorField.text(data);
+          $errorField.removeClass('hidden');
       }
     });
   });

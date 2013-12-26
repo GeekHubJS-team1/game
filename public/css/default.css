@@ -80,6 +80,9 @@ a:hover {
     max-width: 1400px;
     margin: 0 auto;
 }
+.hidden {
+    /*display: none;*/
+}
 /* Header BEGIN*/
 
 .header {
@@ -434,6 +437,7 @@ a:hover {
 .logIn {
     background: #292929;
     position: absolute;
+    overflow: hidden;
     top: 0;
     left: 0;
     width: 100%;
@@ -511,4 +515,13 @@ a:hover {
     font-size: 15px;
     padding: 5px 15px;
     cursor: pointer;
+}
+.logIn p.error {
+    color: #ff0000;
+    text-align: center;
+    margin: 30px 0 0 0;
+    transition: color .5s ease;
+}
+.logIn p.hidden {
+    color: transparent;
 }
