@@ -26,10 +26,10 @@
   var socket = io.connect();
 
   socket.on('login:unauthorized', function () {
-    $('.logIn').fadeIn();
+    $('.logIn fieldset').fadeIn();
   });
   socket.on('login:success', function (user) {
-    $('.logIn').fadeOut();
+    $('.logIn').fadeOut(1000);
     $('.user .name').text(user);
   });
   socket.on('chat', function (msg) {
@@ -66,7 +66,8 @@
     xhr.addEventListener('load', function () {
       var data = this.responseText;
       if (data === 'ok') {
-        location.href = '/';
+        socket.disconnect();
+        socket.socket.connect();
       } else {
         console.log(data);
       }

@@ -6,7 +6,6 @@ module.exports = function(server, cookieParser, sessionStore) {
   sessionSockets.on('connection', function (err, socket, session) {
     if (err || !session.user) {
       socket.emit('login:unauthorized');
-      socket.disconnect();
       return;
     } else {
       socket.emit('login:success', session.user);

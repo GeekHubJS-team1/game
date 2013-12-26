@@ -433,7 +433,6 @@ a:hover {
 /* Log in block*/
 
 .logIn {
-    /*display: none;*/
     background: #292929;
     position: absolute;
     top: 0;
@@ -477,6 +476,7 @@ a:hover {
     margin: 0 auto;
 }
 .logIn fieldset {
+    display: none;
     margin: 50px auto 0 auto;
     padding: 10px;
     width: 250px;
