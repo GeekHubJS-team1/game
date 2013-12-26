@@ -517,11 +517,11 @@ a:hover {
     cursor: pointer;
 }
 .logIn p.error {
-    color: #ff0000;
+    color: transparent;
     text-align: center;
     margin: 30px 0 0 0;
-    transition: color .5s ease;
 }
-.logIn p.hidden {
-    color: transparent;
+.logIn p.error.show {
+    color: #f00;
+    transition: color .5s ease;
 }
