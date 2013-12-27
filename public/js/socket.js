@@ -7,12 +7,19 @@
         e.preventDefault();
         var $textarea = $('.chat textarea');
         var text = $textarea.val();
-        socket.emit('chat', text);
-        $textarea.val('');
+        if (text != '') {
+            socket.emit('chat', text);
+            $textarea.val('');
+            $textarea.parent().parent().find('.error').fadeOut();
+        }
+        else {
+            $textarea.parent().parent().find('.error').fadeIn();
+        }
     }
 
     function receiveMessage(msg) {
-        var $item = $('<li>').html(chatTpl),
+        var $listMessage = $('.chat ul'),
+            $item = $('<li>').html(chatTpl),
             time = new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
         $item.find('.user').text(msg.user);
         if (msg.user === 'me') {
@@ -21,7 +28,9 @@
         $item.find('.state').text(msg.state);
         $item.find('.date').text(time);
         $item.find('p').text(msg.message);
-        $('.chat ul').append($item);
+        $listMessage.append($item);
+        // scroll to the new message
+        $listMessage.scrollTop($listMessage.prop('scrollHeight'));
     }
 
     var socket = io.connect();
@@ -59,7 +68,7 @@
         $('.numOnline').text(count);
     });
 
-    $('.chat input[type=sunmit]').on('click', sendMessage);
+    $('.chat input[type=submit]').on('click', sendMessage);
     $('.chat textarea').on('keyup', function (e) {
         if (e.keyCode == 13) {
             sendMessage(e);

@@ -3,6 +3,8 @@
 /*----------------------------------------------------------------------------------*/
 html, body {
     width: 100%;
+    /*min-height: 380px;*/
+    /*min-width: 1175px;*/
 }
 
 body {
@@ -257,7 +259,7 @@ a:hover {
     background: #292929;
     width: 300px;
     height: 100%;
-    min-height: 570px;
+    min-height: 605px;
     padding: 25px 0;
     overflow: hidden;
     position: fixed;
@@ -266,6 +268,12 @@ a:hover {
     background: rgba(41, 41, 41, 0.7);
     -webkit-transition: right .2s ease;
     transition: right .2s ease;
+}
+.chat .slimScrollDiv {
+    height: 60%;  /*50*/
+    min-height: 400px ;
+    overflow: hidden;
+    padding: 5px;
 }
 .chat h3 {
     color: #eb6a2b;
@@ -281,15 +289,26 @@ a:hover {
 .chat h3 .state {
     color: #fff;
 }
+.chat .error {
+    color: #ff0000;
+    font-size: 15px;
+    font-family: Lobster, sans-serif;
+    display: none;
+}
 .chat ul {
-    padding: 0 20px;
+    padding: 5px 20px;
     overflow: auto;
-    height: 45%;
+    max-height: 350px;
+    /*min-height: 50px;*/
+    height: 100%;
     position: relative;
+}
+.chat li:first-child {
+    margin: 0;
 }
 .chat li {
     overflow: hidden;
-    margin: 0 0 15px 0;
+    margin: 15px 0 0 0;
 }
 .chat li h3 {
     float: left;
@@ -314,12 +333,13 @@ a:hover {
     bottom: 140px;
     left: 0;
 }
+
 .chat fieldset textarea {
     width: 255px;
-    height: 120px;
-    margin: 0 0 10px 0;
+    margin: 10px 0;
     padding: 5px;
     font-family: "Open Sans", sans-serif;
+    resize: none;
 }
 .chat fieldset input[type="submit"] {
     background: #eb6a2b;

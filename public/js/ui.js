@@ -79,7 +79,7 @@ $(document).ready(function() {
     });
 //    Chat scrollbar
     $('.chat ul').slimScroll({
-        alwaysVisible: true,
+        alwaysVisible: false,
         railVisible: true
     });
 });
