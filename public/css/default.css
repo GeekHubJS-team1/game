@@ -257,7 +257,7 @@ a:hover {
     background: #292929;
     width: 300px;
     height: 100%;
-    min-height: 420px;
+    min-height: 570px;
     padding: 25px 0;
     overflow: hidden;
     position: fixed;
@@ -283,9 +283,9 @@ a:hover {
 }
 .chat ul {
     padding: 0 20px;
-    overflow: hidden;
+    overflow: auto;
     height: 45%;
-    /*overflow-y: scroll;*/
+    position: relative;
 }
 .chat li {
     overflow: hidden;
