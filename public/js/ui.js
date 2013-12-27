@@ -77,4 +77,9 @@ $(document).ready(function() {
             $chatBlock.css({'right' : -width+'px'});
         }
     });
+//    Chat scrollbar
+    $('.chat ul').slimScroll({
+        alwaysVisible: true,
+        railVisible: true
+    });
 });
