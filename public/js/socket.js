@@ -69,9 +69,10 @@
     });
 
     $('.chat input[type=submit]').on('click', sendMessage);
-    $('.chat textarea').on('keyup', function (e) {
-        if (e.keyCode == 13) {
+    $('.chat textarea').on('keydown', function (e) {
+        if (e.which == 13 && ! e.shiftKey) {
             sendMessage(e);
+            return false;
         }
     });
     $('#logIn').on('click', function (e) {
