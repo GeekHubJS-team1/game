@@ -1,26 +1,26 @@
 (function () {
-    var $errorField = $('p.error'),
+    var $chatBlock = $('.chat') , $errorLogIn = $('p.error'),
         chatTpl = '<h3><span class="user"></span> ' +
             '<span class="state"></span></h3><span class="date"></span><p></p>';
 
     function sendMessage(e) {
         e.preventDefault();
         var $textarea = $('.chat textarea');
-        var text = $textarea.val();
+        var text = $textarea.val().trim();
         if (text != '') {
             socket.emit('chat', text);
             $textarea.val('');
-            $textarea.parent().parent().find('.error').fadeOut();
+            $chatBlock.find('.error').fadeOut();
         }
         else {
-            $textarea.parent().parent().find('.error').fadeIn();
+            $chatBlock.find('.error').fadeIn();
         }
     }
 
     function receiveMessage(msg) {
-        var $listMessage = $('.chat ul'),
+        var $listMessage = $chatBlock.find('ul'),
             $item = $('<li>').html(chatTpl),
-            time = new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+            time = new Date().toTimeString().replace(/\s.*$/, '');
         $item.find('.user').text(msg.user);
         if (msg.user === 'me') {
             $item.find('.user').addClass('me');
@@ -46,8 +46,8 @@
     });
     socket.on('login:playing', function () {
         socket.disconnect();
-        $errorField.text('You are already playing!');
-        $errorField.addClass('show');
+        $errorLogIn.text('You are already playing!');
+        $errorLogIn.addClass('show');
     });
     socket.on('chat', function (msg) {
         receiveMessage(msg);
@@ -86,8 +86,8 @@
             if (data === 'ok') {
                 socket.socket.connect();
             } else {
-                $errorField.text(data);
-                $errorField.addClass('show');
+                $errorLogIn.text(data);
+                $errorLogIn.addClass('show');
             }
         });
     });
