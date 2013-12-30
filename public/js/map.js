@@ -1,3 +1,5 @@
+var container = document.querySelector('#game-area');
+
 var cellSize = 64;
 var tempMap = new Array([3,1,1,1,1,1,1,1,1,1],
         [1,2,1,3,1,1,3,1,1,1],
@@ -12,8 +14,8 @@ var tempMap = new Array([3,1,1,1,1,1,1,1,1,1],
 
 var stage = new Kinetic.Stage({
     container: 'game-area',
-    width: window.innerWidth,
-    height: window.innerHeight
+    width: container.clientWidth,
+    height: container.clientHeight
 });
 var layer = new Kinetic.Layer({
     x: -cellSize,
@@ -64,3 +66,8 @@ imageGrass.src = 'img/grass.jpg';
 imageSand.src = 'img/sand.jpg';
 imageWater.src = 'img/water.jpg';
 
+window.addEventListener('resize', function (){
+    stage.setWidth(container.clientWidth);
+    stage.setHeight(container.clientHeight);
+    stage.draw();
+});

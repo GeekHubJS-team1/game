@@ -555,3 +555,13 @@ a:hover {
     -webkit-transition: color .5s ease;
     transition: color .5s ease;
 }
+
+/* Game area */
+
+#game-area{
+    position: fixed;
+    top: 84px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}

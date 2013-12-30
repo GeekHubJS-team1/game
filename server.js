@@ -2,7 +2,7 @@ var express = require('express');
 var http = require('http');
 var connect = require('express/node_modules/connect');
 var join = require("path").join;
-var db = require('./db');
+var db = require('./lib/db');
 
 var app = express();
 var cookieParser = express.cookieParser('secret');
@@ -49,10 +49,10 @@ app.get('/logout', function (req, res) {
 
 var server = http.createServer(app);
 
-var io = require('./socket')(server, cookieParser, sessionStore);
+var io = require('./lib/socket')(server, cookieParser, sessionStore);
 app.set('io', io);
 
-require('./game')(app);
+require('./lib/game')(app);
 
 server.listen(8000, function () {
     console.log('Server listening on port ' + 8000);
