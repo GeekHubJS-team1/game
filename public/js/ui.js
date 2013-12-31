@@ -6,7 +6,9 @@
  * To change this template use File | Settings | File Templates.
  */
 $(document).ready(function() {
-    var $slider = $('.items ul'), marginSlider, sliderVisible = 6;
+    var $slider = $('.items ul'),
+        sliderVisible = 6,
+        sliderItems = $slider.find('li').size();
 //  Info boxes
     setTimeout(GameOver, 2000);
     setTimeout(findItem, 3000);
@@ -26,39 +28,30 @@ $(document).ready(function() {
     }
 
 
-//  Slider buttons
+    // Slider buttons
+    $('.items .control').on('click', function(event) {
+        var $this = $(this),
+            offset = $slider.data('offset') || 0;
 
-    $('.items .control').on('click', function() {
-//        move slider to the left side
-        if ($(this).hasClass('right')) {
-            if (!$(this).hasClass('controlDisable')) {
-                marginSlider = parseInt($slider.css('margin-left'));
-                $slider.css({'margin-left': marginSlider-39+"px"});
-            }
-//        disable right button when the we've seen all items
-            if (marginSlider === -($slider.find('li').size()-sliderVisible-1)*39) {
-                $(this).addClass('controlDisable')
-            }
-//        enable left button when it possible ))
-            if ($('.items .left').hasClass('controlDisable')) {
-                $('.items .left').removeClass('controlDisable');
-            }
+        event.preventDefault();
+
+        if ($this.hasClass('controlDisable')) {
+            return;
         }
-        else {
-//        move slider to the right side
-            if (!$(this).hasClass('controlDisable')) {
-                marginSlider = parseInt($slider.css('margin-left'));
-                $slider.css({'margin-left': marginSlider+39+"px"});
-            }
-//        disable right button when the we've seen all items
-            if (marginSlider === -39) {
-                $(this).addClass('controlDisable')
-            }
-//        enable right button when it possible ))
-            if ($('.items .right').hasClass('controlDisable')) {
-                $('.items .right').removeClass('controlDisable');
-            }
+
+        if ($this.hasClass('right')) {
+            offset--;
+        } else {
+            offset++;
         }
+
+        // change disabled state of arrow buttons
+        $('.items .left').toggleClass('controlDisable', !offset);
+        $('.items .right').toggleClass('controlDisable', !(sliderVisible - sliderItems - offset));
+
+        // apply slider offset
+        $slider.css({'margin-left': offset*39+"px"});
+        $slider.data('offset', offset);
     });
 
 //    Chat block move
