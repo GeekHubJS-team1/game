@@ -7,5 +7,11 @@ require.config({
         'slimscroll': 'vendor/jquery.slimscroll'
     }
 });
-define(['controllers/ui', 'controllers/socket', 'controllers/map'], function () {
+define([
+    'controllers/ui',
+    'controllers/login',
+    'controllers/chat',
+    'controllers/online',
+    'controllers/map'
+], function () {
 });

@@ -3,11 +3,12 @@ define([
     'services/socket',
     'text!templates/chat-msg.html'
 ], function ($, socket, chatTpl) {
-    var $chatBlock = $('.chat') , $errorLogIn = $('p.error');
+    var $chatBlock = $('.chat'),
+        $textarea = $('.chat textarea'),
+        $listMessage = $chatBlock.find('ul');
 
     function sendMessage(e) {
         e.preventDefault();
-        var $textarea = $('.chat textarea');
         var text = $textarea.val().trim();
         if (text != '') {
             socket.emit('chat', text);
@@ -20,8 +21,7 @@ define([
     }
 
     function receiveMessage(msg) {
-        var $listMessage = $chatBlock.find('ul'),
-            $item = $('<li>').html(chatTpl),
+        var $item = $('<li>').html(chatTpl),
             time = new Date().toTimeString().replace(/\s.*$/, '');
         $item.find('.user').text(msg.user);
         if (msg.user === 'me') {
@@ -35,20 +35,6 @@ define([
         $listMessage.scrollTop($listMessage.prop('scrollHeight'));
     }
 
-    socket.on('login:unauthorized', function () {
-        socket.disconnect();
-        $('.logIn').fadeIn();
-        $('.logIn fieldset').fadeIn();
-    });
-    socket.on('login:success', function (user) {
-        $('.logIn').fadeOut(1000);
-        $('.user .name').text(user);
-    });
-    socket.on('login:playing', function () {
-        socket.disconnect();
-        $errorLogIn.text('You are already playing!');
-        $errorLogIn.addClass('show');
-    });
     socket.on('chat', function (msg) {
         receiveMessage(msg);
     });
@@ -64,31 +50,12 @@ define([
             state: 'LEFT :('
         });
     });
-    socket.on('online', function (count) {
-        $('.numOnline').text(count);
-    });
 
-    $('.chat input[type=submit]').on('click', sendMessage);
-    $('.chat textarea').on('keydown', function (e) {
+    $chatBlock.find('input[type=submit]').on('click', sendMessage);
+    $textarea.on('keydown', function (e) {
         if (e.which == 13 && !e.shiftKey) {
             sendMessage(e);
             return false;
         }
-    });
-    $('#logIn').on('click', function (e) {
-        e.preventDefault();
-        var xhr = new XMLHttpRequest();
-        var form = $(this).closest('form')[0];
-        xhr.open('POST', '/login');
-        xhr.send(new FormData(form));
-        xhr.addEventListener('load', function () {
-            var data = this.responseText;
-            if (data === 'ok') {
-                socket.socket.connect();
-            } else {
-                $errorLogIn.text(data);
-                $errorLogIn.addClass('show');
-            }
-        });
     });
 });
