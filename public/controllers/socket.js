@@ -1,7 +1,9 @@
-(function () {
-    var $chatBlock = $('.chat') , $errorLogIn = $('p.error'),
-        chatTpl = '<h3><span class="user"></span> ' +
-            '<span class="state"></span></h3><span class="date"></span><p></p>';
+define([
+    'jquery',
+    'services/socket',
+    'text!templates/chat-msg.html'
+], function ($, socket, chatTpl) {
+    var $chatBlock = $('.chat') , $errorLogIn = $('p.error');
 
     function sendMessage(e) {
         e.preventDefault();
@@ -32,8 +34,6 @@
         // scroll to the new message
         $listMessage.scrollTop($listMessage.prop('scrollHeight'));
     }
-
-    var socket = io.connect();
 
     socket.on('login:unauthorized', function () {
         socket.disconnect();
@@ -70,7 +70,7 @@
 
     $('.chat input[type=submit]').on('click', sendMessage);
     $('.chat textarea').on('keydown', function (e) {
-        if (e.which == 13 && ! e.shiftKey) {
+        if (e.which == 13 && !e.shiftKey) {
             sendMessage(e);
             return false;
         }
@@ -91,4 +91,4 @@
             }
         });
     });
-}());
+});

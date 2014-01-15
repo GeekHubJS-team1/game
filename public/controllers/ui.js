@@ -1,11 +1,4 @@
-/**
- * Created with JetBrains PhpStorm.
- * User: User
- * Date: 24.12.13
- * Time: 22:07
- * To change this template use File | Settings | File Templates.
- */
-$(document).ready(function() {
+define(['jquery', 'slimscroll'], function($) {
     var $slider = $('.items ul'),
         sliderVisible = 6,
         sliderItems = $slider.find('li').size();
