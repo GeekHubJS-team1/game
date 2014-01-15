@@ -9,7 +9,9 @@
     "async": "*",
     "session.socket.io": "*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+      "grunt": "~0.4.2"
+  },
   "scripts": {
     "start": "node server.js"
   },
