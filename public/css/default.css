@@ -284,9 +284,9 @@ a:hover {
     transition: right .2s ease;
 }
 .chat .slimScrollDiv {
-    height: calc(100% - 237px);
+    height: calc(100% - 230px);
     overflow: hidden;
-    padding: 5px;
+    padding: 0;
 }
 .chat h3 {
     color: #eb6a2b;
@@ -309,7 +309,7 @@ a:hover {
     display: none;
 }
 .chat ul {
-    padding: 5px 20px;
+    padding: 0 20px;
     overflow: auto;
     height: 100%;
     position: relative;

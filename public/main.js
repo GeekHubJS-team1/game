@@ -5,6 +5,9 @@ require.config({
         'kinetic': 'vendor/kinetic',
         'text': 'vendor/requirejs-text/text',
         'slimscroll': 'vendor/jquery.slimscroll'
+    },
+    shim: {
+        slimscroll: ["jquery"]
     }
 });
 define([

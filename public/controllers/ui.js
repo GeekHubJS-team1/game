@@ -1,4 +1,4 @@
-define(['jquery', 'slimscroll'], function($) {
+define(['jquery', 'controllers/chat'], function($, chat) {
     var $slider = $('.items ul'),
         sliderVisible = 6,
         sliderItems = $slider.find('li').size();
@@ -47,25 +47,12 @@ define(['jquery', 'slimscroll'], function($) {
         $slider.data('offset', offset);
     });
 
-//    Chat block move
-    var $chatBlock = $('.chat'), width = $chatBlock.width();
+    // Chat block show/hide
     $('.chatButton').on('click', function() {
-        if (parseInt($chatBlock.css('right')) === 0) {
-            $chatBlock.css({'right' : -width+'px'});
+        if (chat.visible) {
+            chat.hide();
+        } else {
+            chat.show();
         }
-        else {
-            $chatBlock.css({'right' : '0px'});
-        }
-    });
-    $chatBlock.find('.close').on('click', function() {
-        $chatBlock = $(this).parent();
-        if (parseInt($chatBlock.css('right')) === 0) {
-            $chatBlock.css({'right' : -width+'px'});
-        }
-    });
-//    Chat scrollbar
-    $('.chat ul').slimScroll({
-        alwaysVisible: false,
-        railVisible: true
     });
 });

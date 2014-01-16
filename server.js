@@ -50,9 +50,8 @@ app.get('/logout', function (req, res) {
 var server = http.createServer(app);
 
 var io = require('./lib/socket')(server, cookieParser, sessionStore);
-app.set('io', io);
 
-require('./lib/game')(app);
+require('./lib/chat')(app, io);
 
 server.listen(8000, function () {
     console.log('Server listening on port ' + 8000);
