@@ -1,0 +1,65 @@
+.header .items {
+    float: left;
+    border-right: 1px dotted #505555;
+    overflow: hidden;
+    height: 100%;
+    padding: 0 30px;
+    margin: 0 20px 0 0;
+}
+.header .items h2 {
+    color: #f5eb65;
+    font-weight: normal;
+    font-size: 14px;
+    text-align: center;
+    padding: 10px 0;
+}
+.header .items .numItems {
+    color: #eb6a2b;
+    width: 30px;
+    display: inline-block;
+}
+.header .items .wrapItems {
+    position: relative;
+}
+.header .items .wrapSlider {
+    overflow: hidden;
+    margin: 0 auto;
+    width: 233px;
+}
+.header .items ul {
+    width: 1000px;
+    -webkit-transition: margin .2s ease;
+    transition: margin .2s ease;
+}
+.header .items li:first-child {
+    margin: 0;
+}
+.header .items li {
+    float: left;
+    margin: 0 0 0 5px;
+    cursor: pointer;
+}
+.header .items li img {
+    border: 1px solid #fff568;
+    border-radius: 5px;
+}
+.header .items .controlDisable {
+    background: url("./../images/arrows/disableControls.png") no-repeat !important;;
+}
+.header .items .control {
+    background: url("./../images/arrows/enableControls.png") no-repeat;
+    display: block;
+    width: 10px;
+    height: 18px;
+    text-indent: -200px;
+    overflow: hidden;
+    position: absolute;
+    top: 30%;
+}
+.header .items .left {
+    left: 0;
+}
+.header .items .right {
+    background-position: -10px 0 !important;
+    right: 0;
+}

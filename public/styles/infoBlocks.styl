@@ -1,0 +1,87 @@
+.info {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+.info li:first-child {
+    margin: 0;
+}
+.info li {
+    margin: 15px 0 0 0;
+    position: relative;
+}
+.message {
+    padding: 30px;
+    background: rgba(41, 41, 41, 0.7);
+    width: 260px;
+    height: 60px;
+    display: none;
+}
+.message h3 {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: center;
+    color: #fff;
+    margin: 0 0 20px 0;
+}
+.message p {
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+}
+
+.message .close {
+    background: url("./../images/close.png") center center no-repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    text-indent: -200px;
+    overflow: hidden;
+}
+
+/* Game over */
+
+.gameOver {
+}
+.gameOver h3 span {
+    color: #eb6a2b;
+}
+.gameOver ul {
+    overflow: hidden;
+    width: 135px;
+    margin: 0 auto;
+}
+.gameOver li:first-child {
+    margin: 0;
+}
+.gameOver li {
+    float: left;
+    overflow: hidden;
+    margin: 0 0 0 10px;
+}
+.gameOver li a {
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #fff;
+    padding: 5px 10px;
+    display: block;
+}
+.gameOver li.again a {
+    background: #eb6a2b;
+}
+.gameOver li.exit a {
+    background: #292929;
+}
+
+/* Find an item */
+
+.findItem h3 span {
+    color: #8ad2d5;
+}
+.findItem p {
+    text-align: center;
+}
