@@ -7,11 +7,14 @@
     "pngjs": "*",
     "socket.io": "*",
     "async": "*",
-    "session.socket.io": "*"
+    "session.socket.io": "*",
+    "stylus": "~0.42.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
-    "grunt-contrib-requirejs": "~0.4.1"
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-stylus": "~0.12.0",
+    "csso-stylus": "0.0.3"
   },
   "scripts": {
     "start": "node server.js"

@@ -17,8 +17,21 @@ module.exports = function (grunt) {
                     out: 'public/all.min.js'
                 }
             }
+        },
+        stylus: {
+            options: {
+                use : [
+                    require('csso-stylus')
+                ]
+            },
+            compile: {
+                files: {
+                    'public/all.min.css': 'public/styles/all.styl'
+                }
+            }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-requirejs');
-    grunt.registerTask('default', ["requirejs"]);
+    grunt.loadNpmTasks('grunt-contrib-stylus');
+    grunt.registerTask('default', ["requirejs", "stylus"]);
 };

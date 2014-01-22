@@ -1,6 +1,7 @@
 var express = require('express');
 var http = require('http');
 var connect = require('express/node_modules/connect');
+var stylus = require('stylus');
 var join = require("path").join;
 var db = require('./lib/db');
 
@@ -8,12 +9,21 @@ var app = express();
 var cookieParser = express.cookieParser('secret');
 var sessionStore = new connect.middleware.session.MemoryStore();
 
+var publicDir = join(__dirname, "public");
+
+app.configure('development',function () {
+    app.use(stylus.middleware({
+        src: publicDir + '/styles',
+        dest: publicDir
+    }));
+});
+
 app.configure(function () {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(cookieParser);
     app.use(express.session({ store: sessionStore }));
-    app.use(express.static(join(__dirname, "public"), { maxAge: 86400000 }));
+    app.use(express.static(publicDir, { maxAge: 86400000 }));
 });
 
 app.post('/login', function (req, res) {
