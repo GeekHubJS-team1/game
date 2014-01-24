@@ -18,20 +18,20 @@ module.exports = function (grunt) {
                 }
             }
         },
-        stylus: {
+        less: {
             options: {
-                use : [
-                    require('csso-stylus')
-                ]
+                paths: ["public/styles"],
+                compress: true,
+                sourceMap: true,
+                sourceMapFilename: "public/all.min.css.map",
+                sourceMapBasepath: 'public'
             },
-            compile: {
-                files: {
-                    'public/all.min.css': 'public/styles/all.styl'
-                }
+            files: {
+                "public/all.min.css": ["public/styles/all.less"]
             }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-requirejs');
-    grunt.loadNpmTasks('grunt-contrib-stylus');
-    grunt.registerTask('default', ["requirejs", "stylus"]);
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.registerTask('default', ["requirejs", "less"]);
 };

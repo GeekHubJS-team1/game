@@ -1,7 +1,7 @@
 var express = require('express');
 var http = require('http');
 var connect = require('express/node_modules/connect');
-var stylus = require('stylus');
+var lessMiddleware  = require('less-middleware');
 var join = require("path").join;
 var db = require('./lib/db');
 
@@ -12,9 +12,10 @@ var sessionStore = new connect.middleware.session.MemoryStore();
 var publicDir = join(__dirname, "public");
 
 app.configure('development',function () {
-    app.use(stylus.middleware({
+    app.use(lessMiddleware({
         src: publicDir + '/styles',
-        dest: publicDir
+        dest: publicDir,
+        sourceMap: true
     }));
 });
 
@@ -24,6 +25,8 @@ app.configure(function () {
     app.use(cookieParser);
     app.use(express.session({ store: sessionStore }));
     app.use(express.static(publicDir, { maxAge: 86400000 }));
+    // for less source maps
+    app.use('/'+publicDir.replace(/\\/g, '/'), express.static(publicDir));
 });
 
 app.post('/login', function (req, res) {
