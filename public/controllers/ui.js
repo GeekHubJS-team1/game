@@ -1,25 +1,26 @@
-define(['jquery', 'controllers/chat'], function($, chat) {
+define(['jquery', 'controllers/chat', 'controllers/infoBoxes'], function($, chat, infoBoxes) {
     var $slider = $('.items ul'),
         sliderVisible = 6,
         sliderItems = $slider.find('li').size();
 //  Info boxes
-    setTimeout(GameOver, 2000);
-    setTimeout(findItem, 3000);
     $('.message .close').on('click', function() {
         $(this).parent().fadeOut();
     });
-    var $gameOverBlock = $('.gameOver');
-    function GameOver() {
-        $gameOverBlock.fadeIn();
-//        setTimeout($gameOverBlock.fadeOut(), 5000)
-    }
-
-    var $findItemBlock = $('.findItem');
-    function findItem() {
-        $findItemBlock.fadeIn();
-//        setTimeout($gameOverBlock.fadeOut(), 5000)
-    }
-
+    info.gameOver();
+    info.findItem('User', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed');
+//    setTimeout(GameOver, 2000);
+//    setTimeout(findItem, 3000);
+//    var $gameOverBlock = $('.gameOver');
+//    function GameOver() {
+//        $gameOverBlock.fadeIn();
+////        setTimeout($gameOverBlock.fadeOut(), 5000)
+//    }
+//
+//    var $findItemBlock = $('.findItem');
+//    function findItem() {
+//        $findItemBlock.fadeIn();
+////        setTimeout($gameOverBlock.fadeOut(), 5000)
+//    }
 
     // Slider buttons
     $('.items .control').on('click', function(event) {
