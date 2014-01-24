@@ -1,4 +1,4 @@
-define(['jquery', 'controllers/chat', 'controllers/infoBoxes'], function($, chat, infoBoxes) {
+define(['jquery', 'controllers/chat', 'controllers/infoBoxes'], function($, chat, info) {
     var $slider = $('.items ul'),
         sliderVisible = 6,
         sliderItems = $slider.find('li').size();
