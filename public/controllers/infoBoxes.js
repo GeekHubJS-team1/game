@@ -1,23 +1,23 @@
 /**
  * Created by User on 24.01.14.
  */
-define(['jquery' ], function ($) {
+define(['jquery', 'text!templates/infoBox.html' ], function ($, infoTpl) {
     return {
         template: function() {
-            var $box = $('<li class="message"><h3></h3><a href="#" class="close">close</a></li>');
-            $box.find('a').on('click', function() {
+            var $infoBoxTemplate = $(infoTpl);
+            $infoBoxTemplate.find('a').on('click', function() {
                 $(this).parent().fadeOut();
             });
-            return $box;
+            return $infoBoxTemplate;
         },
         gameOver: function () {
-            var $infoBLock = $(this.template());
-            $infoBLock.addClass('gameOver');
-            $infoBLock.find('h3').html('<span>Game over</span> try again?');
-            $infoBLock.find('h3').after('<ul><li class="again"><a href="#">Yes</a></li><li class="exit"><a href="#">No way</a></li></ul>');
-            $infoBLock.fadeOut();
-            $('ul.info').append($infoBLock);
-            $infoBLock.fadeIn();
+            var $infoBox = $(this.template());
+            $infoBox.addClass('gameOver');
+            $infoBox.find('h3').html('<span>Game over</span> try again?');
+            $infoBox.find('h3').after('<ul><li class="again"><a href="#">Yes</a></li><li class="exit"><a href="#">No way</a></li></ul>');
+            $infoBox.fadeOut();
+            $('ul.info').append($infoBox);
+            $infoBox.fadeIn();
         },
         findItem: function (user, infoItem) {
             var $infoBLock = $(this.template());
