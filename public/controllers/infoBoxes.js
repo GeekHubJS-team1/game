@@ -3,10 +3,16 @@
  */
 define(['jquery' ], function ($) {
     return {
-        that: this,
-        template: '<li><h3></h3><a href="#" class="close">close</a></li>',
+        template: function() {
+            var $box = $('<li class="message"><h3></h3><a href="#" class="close">close</a></li>');
+            $box.find('a').on('click', function() {
+                $(this).parent().fadeOut();
+            });
+            return $box;
+        },
         gameOver: function () {
-            var $infoBLock = $(info.template);
+            var $infoBLock = $(this.template());
+            $infoBLock.addClass('gameOver');
             $infoBLock.find('h3').html('<span>Game over</span> try again?');
             $infoBLock.find('h3').after('<ul><li class="again"><a href="#">Yes</a></li><li class="exit"><a href="#">No way</a></li></ul>');
             $infoBLock.fadeOut();
@@ -14,7 +20,8 @@ define(['jquery' ], function ($) {
             $infoBLock.fadeIn();
         },
         findItem: function (user, infoItem) {
-            var $infoBLock = $(info.template);
+            var $infoBLock = $(this.template());
+            $infoBLock.addClass('findItem');
             $infoBLock.find('h3').html('<span>' + user + '</span> find an item');
             $infoBLock.find('h3').after('<p>' + infoItem + '</p>');
             $infoBLock.fadeOut();
