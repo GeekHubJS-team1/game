@@ -11,22 +11,24 @@ define(['jquery', 'text!templates/infoBox.html' ], function ($, infoTpl) {
             return $infoBoxTemplate;
         },
         gameOver: function () {
-            var $infoBox = $(this.template());
-            $infoBox.addClass('gameOver');
-            $infoBox.find('h3').html('<span>Game over</span> try again?');
-            $infoBox.find('h3').after('<ul><li class="again"><a href="#">Yes</a></li><li class="exit"><a href="#">No way</a></li></ul>');
-            $infoBox.fadeOut();
-            $('ul.info').append($infoBox);
-            $infoBox.fadeIn();
+            var $infoBlock = this.template();
+            $infoBlock.addClass('gameOver');
+            $infoBlock.find('h3').html('<span>Game over</span> try again?');
+            $infoBlock.find('h3').after('<ul><li class="again"><a href="#">Yes</a></li><li class="exit"><a href="#">No way</a></li></ul>');
+            $infoBlock.fadeOut();
+            $('ul.info').append($infoBlock);
+            $infoBlock.fadeIn();
         },
         findItem: function (user, infoItem) {
-            var $infoBLock = $(this.template());
-            $infoBLock.addClass('findItem');
-            $infoBLock.find('h3').html('<span>' + user + '</span> find an item');
-            $infoBLock.find('h3').after('<p>' + infoItem + '</p>');
-            $infoBLock.fadeOut();
-            $('ul.info').append($infoBLock);
-            $infoBLock.fadeIn();
+            var $infoBlock = this.template();
+            $infoBlock.addClass('findItem');
+            $infoBlock.find('h3').html('<span></span> find an item');
+            $infoBlock.find('h3 span').text(user);
+            $infoBlock.find('h3').after('<p>' + infoItem + '</p>');
+            $infoBlock.fadeOut();
+            $('ul.info').append($infoBlock);
+            $infoBlock.fadeIn();
+            setTimeout($infoBlock.fadeOut.bind($infoBlock), 5000);
         }
     }
 });
