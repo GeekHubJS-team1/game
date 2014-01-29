@@ -33,7 +33,7 @@ define([
         }
     };
 
-    chat.onreceive = function (msg) {
+    chat.on('receive', function (msg) {
         var $item = $(chatTpl),
             time = new Date().toTimeString().replace(/\s.*$/, '');
         $item.find('.user').text(msg.user);
@@ -46,7 +46,7 @@ define([
         $listMessage.append($item);
         // scroll to the new message
         $listMessage.scrollTop($listMessage.prop('scrollHeight'));
-    };
+    });
 
     // send message on SEND or Enter button
     $chatBlock.find('input[type=submit]').on('click', sendMessage);

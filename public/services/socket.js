@@ -1,3 +1,3 @@
-define(['io'], function (io) {
+define(['socket.io'], function (io) {
     return io.connect();
 });

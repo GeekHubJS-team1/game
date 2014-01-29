@@ -1,24 +1,26 @@
 define([
-    'services/socket'
-], function (socket) {
-    var chat = {
-        send: function (message) {
-            socket.emit('chat', message);
-        },
-        onreceive: null
+    'services/socket',
+    'EventEmitter'
+], function (socket, EventEmitter) {
+    var chat = new EventEmitter();
+
+    chat.send = function (message) {
+        socket.emit('chat', message);
     };
 
     socket.on('chat', function (msg) {
-        if (chat.onreceive) chat.onreceive(msg);
+        chat.emit('receive', msg);
     });
+
     socket.on('user:in', function (user) {
-        if (chat.onreceive) chat.onreceive({
+        chat.emit('receive', {
             user: user,
             state: 'JOINED!'
         });
     });
+
     socket.on('user:out', function (user) {
-        if (chat.onreceive) chat.onreceive({
+        chat.emit('receive', {
             user: user,
             state: 'LEFT :('
         });
