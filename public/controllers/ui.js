@@ -49,7 +49,8 @@ define(['jquery', 'controllers/chat', 'controllers/infoBoxes'], function($, chat
     });
 
     // Chat block show/hide
-    $('.chatButton').on('click', function() {
+    $('.chatButton').on('click', function(event) {
+        event.preventDefault();
         if (chat.visible) {
             chat.hide();
         } else {

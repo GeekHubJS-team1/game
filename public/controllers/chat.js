@@ -34,7 +34,7 @@ define([
     };
 
     chat.on('receive', function (msg) {
-        var $item = $(chatTpl),
+        var height, $item = $(chatTpl),
             time = new Date().toTimeString().replace(/\s.*$/, '');
         $item.find('.user').text(msg.user);
         if (msg.user === 'me') {
@@ -45,7 +45,8 @@ define([
         $item.find('p').text(msg.message);
         $listMessage.append($item);
         // scroll to the new message
-        $listMessage.scrollTop($listMessage.prop('scrollHeight'));
+        height = $listMessage.prop('scrollHeight');
+        $listMessage.slimScroll({scrollTo: height + 'px'});
     });
 
     // send message on SEND or Enter button
@@ -58,7 +59,8 @@ define([
     });
 
     // Close button
-    $chatBlock.find('.close').on('click', function () {
+    $chatBlock.find('.close').on('click', function (event) {
+        event.preventDefault();
         chatCtrl.hide();
     });
 
