@@ -16,5 +16,5 @@ require([
     'controllers/login',
     'controllers/chat',
     'controllers/online',
-    'controllers/map'
+    'controllers/canvas'
 ]);
