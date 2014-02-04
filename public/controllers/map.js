@@ -3,7 +3,13 @@ define(['kinetic'], function (Kinetic) {
     var layer = new Kinetic.Layer();
 
     var imageGrass = new Image();
-    imageGrass.src = 'img/grass.jpg';
+    if (Math.random() > 0.5) {
+        imageGrass.src = 'images/bg/grass.jpg';
+    }
+    else {
+        imageGrass.src = 'images/bg/sand.jpg';
+    }
+
     imageGrass.onload = function () {
         var rect = new Kinetic.Rect({
             x: 0,
@@ -15,6 +21,6 @@ define(['kinetic'], function (Kinetic) {
         layer.add(rect);
         layer.draw();
     };
-
+    layer.setScale(.5, .5);
     return layer;
 });

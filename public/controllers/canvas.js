@@ -1,7 +1,7 @@
 define([
     'kinetic',
-    'controllers/map.js',
-    'controllers/player.js'
+    'controllers/map',
+    'controllers/player'
 ], function (Kinetic, map, player) {
     var container = document.querySelector('#game-area');
     var stage = new Kinetic.Stage({
