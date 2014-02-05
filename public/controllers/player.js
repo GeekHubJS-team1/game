@@ -65,7 +65,7 @@ define(['jquery', 'kinetic', 'controllers/map'], function ($, Kinetic, Map) {
             moveMapHeight = -Math.floor((MAPHEIGHT - screenHeight)/SQUARE)*SQUARE,
             moveUserWidth = Math.floor((screenWidth)/SQUARE)*SQUARE,
             moveUserHeight = Math.floor((screenHeight - 2*SQUARE)/SQUARE)*SQUARE;
-        if (e.keyCode === 37) {
+        if (e.keyCode === 37 || e.keyCode === 65) {
             if (mapX < 0 && userX <= 4*SQUARE) {
                 mapX += SQUARE;
             }
@@ -73,7 +73,7 @@ define(['jquery', 'kinetic', 'controllers/map'], function ($, Kinetic, Map) {
                 userX -= userLayer.getWidth();
             }
         }
-        else if (e.keyCode === 39) {
+        else if (e.keyCode === 39 || e.keyCode === 68) {
             if (mapX > moveMapWidth && userX > 3*SQUARE) {
                 mapX -= SQUARE;
             }
@@ -81,7 +81,7 @@ define(['jquery', 'kinetic', 'controllers/map'], function ($, Kinetic, Map) {
                 userX += SQUARE;
             }
         }
-        else if (e.keyCode === 38) {
+        else if (e.keyCode === 38 || e.keyCode === 87) {
             if (mapY < 0 && userY < 3*SQUARE) {
                 mapY += SQUARE;
             }
@@ -89,7 +89,7 @@ define(['jquery', 'kinetic', 'controllers/map'], function ($, Kinetic, Map) {
                 userY -= SQUARE;
             }
         }
-        else if (e.keyCode === 40) {
+        else if (e.keyCode === 40 || e.keyCode === 83) {
             if (mapY >= moveMapHeight && userY >= 2*SQUARE) {
                 mapY -= SQUARE;
             }
