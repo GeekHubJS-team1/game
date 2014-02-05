@@ -8,7 +8,7 @@ define([
         container: 'game-area',
         width: container.clientWidth,
         height: container.clientHeight,
-        draggable: false
+        draggable: true
     });
 
     stage.add(map);
