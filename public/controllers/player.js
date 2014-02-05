@@ -1,32 +1,60 @@
-define(['jquery', 'kinetic', 'controllers/map'], function ($, Kinetic, Map) {
+define(['jquery', 'kinetic'], function ($, Kinetic) {
     var SQUARE = 128,
-        MAPWIDTH = 25 * SQUARE,
-        MAPHEIGHT = 25 * SQUARE,
-        userX = 0,
-        userY = 0,
-        mapX = Map.getOffsetX(),
-        mapY = Map.getOffsetY(),
-        userLayer, image, moving;
+        MAP_SIZE = 25,
+        SPEED = 5,
+        userLayer, image, moving,
+        player = {x: 0, y: 0};
 
-    function moveMap(x, y) {
-        new Kinetic.Tween({
-            node: Map,
-            duration: .5,
-            x: x,
-            y: y
-        }).play();
+    function checkPos(x, y) {
+
+        if (x < 0 || x > (MAP_SIZE - 1)) {
+            return false;
+        }
+        if (y < 0 || y > (MAP_SIZE - 1)) {
+            return false;
+        }
+        return true;
     }
 
-    function moveUser(x, y) {
+    function moveTo(x, y) {
+        var speed;
+        if (!checkPos(x, y)) {
+            return;
+        }
+        speed = Math.sqrt(Math.pow(player.x - x, 2) + Math.pow(player.y - y, 2)) / SPEED;
+        console.log(speed)
         moving = true;
         new Kinetic.Tween({
             node: userLayer,
-            duration: .5,
-            x: x,
-            y: y,
-            onFinish: function() {
+            duration: speed,
+            x: x * SQUARE,
+            y: y * SQUARE,
+            onFinish: function () {
                 moving = false;
             }
+        }).play();
+        player.x = x;
+        player.y = y;
+        moveStage(speed);
+    }
+
+    function moveStage(speed) {
+        var stage = userLayer.parent;
+        if (((player.x - 1) * SQUARE + stage.x) < 0) {
+            stage.x = -(player.x - 1) * SQUARE;
+        } else if (((player.x + 2) * SQUARE + stage.x) > window.innerWidth) {
+            stage.x = -(player.x + 2) * SQUARE + window.innerWidth;
+        }
+        if (((player.y - 1) * SQUARE + stage.y) < 0) {
+            stage.y = -(player.y - 1) * SQUARE;
+        } else if (((player.y + 2) * SQUARE + stage.y) > window.innerHeight) {
+            stage.y = -(player.y + 2) * SQUARE + window.innerHeight;
+        }
+        new Kinetic.Tween({
+            node: userLayer.parent,
+            duration: speed,
+            x: stage.x,
+            y: stage.y
         }).play();
     }
 
@@ -48,77 +76,37 @@ define(['jquery', 'kinetic', 'controllers/map'], function ($, Kinetic, Map) {
             height: SQUARE
         });
         // add the shape to the userLayer
-        userX = userY = 2 * SQUARE;
-        new Kinetic.Tween({
-            node: userLayer,
-            duration: .5,
-            x: userX,
-            y: userY
-        }).play();
         userLayer.add(user);
-        userLayer.draw();
+        moveTo(2, 2);
     };
 
-    /*$('#game-area').on('click', function (e) {
-     var stagePos = userLayer.parent.getPosition();
-     if ((mapX < 0 && userX <= 4*SQUARE) || (mapX > moveMapWidth && userX > 3*SQUARE) ||
-     (mapY < 0 && userY < 3*SQUARE) || (mapY >= moveMapHeight && userY >= 2*SQUARE) {
-     }
-     userX = Math.floor((e.clientX - stagePos.x)/SQUARE-3)*SQUARE;
-     userY = Math.floor((e.clientY - stagePos.y)/SQUARE-2)*SQUARE;
-     new Kinetic.Tween({
-     node: userLayer,
-     duration: .5,
-     x: userX,
-     y: userY
-     }).play();
-     });*/
+    $('#game-area').on('click', function (e) {
+        var stagePos = userLayer.parent.getPosition(),
+            newX, newY;
+        if (moving) {
+            return;
+        }
+        newX = Math.floor((e.clientX - stagePos.x) / SQUARE);
+        newY = Math.floor((e.clientY - stagePos.y) / SQUARE);
+        moveTo(newX, newY);
+    });
 
     $(document).on('keydown', function (e) {
         if (moving) {
             return;
         }
-        console.log(mapX + ' map ' + mapY);
-        console.log(userX + ' user ' + userY);
-        var screenWidth = window.innerWidth, screenHeight = window.innerHeight,
-            moveMapWidth = -Math.floor((MAPWIDTH - screenWidth) / SQUARE) * SQUARE,
-            moveMapHeight = -Math.floor((MAPHEIGHT - screenHeight) / SQUARE) * SQUARE,
-            moveUserWidth = Math.floor((screenWidth) / SQUARE) * SQUARE,
-            moveUserHeight = Math.floor((screenHeight - 2 * SQUARE) / SQUARE) * SQUARE;
         if (e.keyCode === 37 || e.keyCode === 65) {
-            if (mapX < 0 && userX <= 4 * SQUARE) {
-                mapX += SQUARE;
-            }
-            else if (userX > 0) {
-                userX -= userLayer.getWidth();
-            }
+            moveTo(player.x - 1, player.y);
         }
         else if (e.keyCode === 39 || e.keyCode === 68) {
-            if (mapX > moveMapWidth && userX > 3 * SQUARE) {
-                mapX -= SQUARE;
-            }
-            else if (userX < moveUserWidth) {
-                userX += SQUARE;
-            }
+            moveTo(player.x + 1, player.y);
         }
         else if (e.keyCode === 38 || e.keyCode === 87) {
-            if (mapY < 0 && userY < 3 * SQUARE) {
-                mapY += SQUARE;
-            }
-            else if (userY > 0) {
-                userY -= SQUARE;
-            }
+            moveTo(player.x, player.y - 1);
         }
         else if (e.keyCode === 40 || e.keyCode === 83) {
-            if (mapY >= moveMapHeight && userY >= 2 * SQUARE) {
-                mapY -= SQUARE;
-            }
-            else if (userY <= moveUserHeight) {
-                userY += SQUARE;
-            }
+            moveTo(player.x, player.y + 1);
         }
-        moveUser(userX, userY);
-        moveMap(mapX, mapY);
     });
 
     return userLayer;

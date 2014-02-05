@@ -8,8 +8,11 @@ define([
         container: 'game-area',
         width: container.clientWidth,
         height: container.clientHeight,
-        draggable: true
+        x: 128,
+        y: 128
     });
+
+    stage.x = stage.y = 128;
 
     stage.add(map);
     stage.add(player);
