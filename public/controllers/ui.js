@@ -8,19 +8,6 @@ define(['jquery', 'controllers/chat', 'controllers/infoBoxes'], function($, chat
     });
     info.gameOver();
     info.findItem('User', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed');
-//    setTimeout(GameOver, 2000);
-//    setTimeout(findItem, 3000);
-//    var $gameOverBlock = $('.gameOver');
-//    function GameOver() {
-//        $gameOverBlock.fadeIn();
-////        setTimeout($gameOverBlock.fadeOut(), 5000)
-//    }
-//
-//    var $findItemBlock = $('.findItem');
-//    function findItem() {
-//        $findItemBlock.fadeIn();
-////        setTimeout($gameOverBlock.fadeOut(), 5000)
-//    }
 
     // Slider buttons
     $('.items .control').on('click', function(event) {
@@ -56,5 +43,12 @@ define(['jquery', 'controllers/chat', 'controllers/infoBoxes'], function($, chat
         } else {
             chat.show();
         }
+    });
+
+    $('#textMessage').on('focus', function() {
+        $(this).addClass('active');
+    });
+    $('#textMessage').on('blur', function() {
+        $(this).removeClass('active');
     });
 });
