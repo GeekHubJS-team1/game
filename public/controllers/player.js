@@ -81,7 +81,7 @@ define(['jquery', 'kinetic'], function ($, Kinetic) {
     };
 
     $('#game-area').on('click', function (e) {
-        if ($('#textMessage').hasClass('active')) {
+        if ($('#textMessage').is( ":focus" )) {
             $('#textMessage').blur();
         }
         var stagePos = userLayer.parent.getPosition(),
@@ -95,7 +95,7 @@ define(['jquery', 'kinetic'], function ($, Kinetic) {
     });
 
     $(document).on('keydown', function (e) {
-        if (moving || $('#textMessage').hasClass('active')) {
+        if (moving || $('#textMessage').is( ":focus" )) {
             return;
         }
         if (e.keyCode === 37 || e.keyCode === 65) {

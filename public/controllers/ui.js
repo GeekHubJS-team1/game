@@ -44,11 +44,4 @@ define(['jquery', 'controllers/chat', 'controllers/infoBoxes'], function($, chat
             chat.show();
         }
     });
-
-    $('#textMessage').on('focus', function() {
-        $(this).addClass('active');
-    });
-    $('#textMessage').on('blur', function() {
-        $(this).removeClass('active');
-    });
 });
