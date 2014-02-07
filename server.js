@@ -65,6 +65,7 @@ var server = http.createServer(app);
 var io = require('./lib/socket')(server, cookieParser, sessionStore);
 
 require('./lib/chat')(app, io);
+require('./lib/game')(app, io);
 
 server.listen(8000, function () {
     console.log('Server listening on port ' + 8000);

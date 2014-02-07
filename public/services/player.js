@@ -3,14 +3,20 @@ define([
     'EventEmitter'
 ], function (socket, EventEmitter) {
     var player = new EventEmitter();
-
-    setTimeout(function () {
-        player.emit('spawn', {
-            x: Math.floor(Math.random() * (24 + 1)),
-            y: Math.floor(Math.random() * (24 + 1))
+    player.move = function (x, y) {
+        socket.emit('move', {
+            x: x,
+            y: y
         });
-    }, 10);
+    };
 
+    socket.on('spawn', function (pos) {
+        player.emit('spawn', pos);
+    });
+
+    socket.on('move', function (pos) {
+        player.emit('move', pos);
+    });
 
     return player;
 });

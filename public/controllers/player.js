@@ -2,7 +2,7 @@ define([
     'jquery',
     'kinetic',
     'services/player'
-], function ($, Kinetic, playerS) {
+], function ($, Kinetic, player) {
     var SQUARE = 128,
         MAP_SIZE = 25,
         SPEED = 5,
@@ -10,35 +10,22 @@ define([
         keyMove = false,
         userLayer, image, moving,
         sprite = {setAnimation: function () {}}, // to prevent error when image is not loaded
-        player = {x: 0, y: 0};
+        pos = {x: 0, y: 0};
 
-    function checkPos(x, y) {
-
-        if (x < 0 || x > (MAP_SIZE - 1)) {
-            return false;
-        }
-        if (y < 0 || y > (MAP_SIZE - 1)) {
-            return false;
-        }
-        return true;
-    }
 
     function moveTo(x, y, spawn) {
         var speed;
-        if (!checkPos(x, y)) {
-            return;
-        }
         console.log('new position', x, y);
         if (spawn) {
             speed = SPAWN_SPEED;
         } else {
-            speed = Math.sqrt(Math.pow(player.x - x, 2) + Math.pow(player.y - y, 2)) / SPEED;
+            speed = Math.sqrt(Math.pow(pos.x - x, 2) + Math.pow(pos.y - y, 2)) / SPEED;
         }
-        if (x > player.x) {
+        if (x > pos.x) {
             sprite.setAnimation('right');
-        } else if (x < player.x) {
+        } else if (x < pos.x) {
             sprite.setAnimation('left');
-        } else if (y < player.y) {
+        } else if (y < pos.y) {
             sprite.setAnimation('up');
         } else {
             sprite.setAnimation('idle');
@@ -56,26 +43,26 @@ define([
                 moving = false;
             }
         }).play();
-        player.x = x;
-        player.y = y;
+        pos.x = x;
+        pos.y = y;
         moveStage(speed);
     }
 
     function moveStage(speed) {
         var stage = userLayer.parent;
         if (speed === SPAWN_SPEED) {
-            stage.x = -(player.x + .5) * SQUARE + window.innerWidth / 2;
-            stage.y = -(player.y + .5) * SQUARE + window.innerHeight / 2;
+            stage.x = -(pos.x + .5) * SQUARE + window.innerWidth / 2;
+            stage.y = -(pos.y + .5) * SQUARE + window.innerHeight / 2;
         }
-        if (((player.x - 1) * SQUARE + stage.x) < 0) {
-            stage.x = -(player.x - 1) * SQUARE;
-        } else if (((player.x + 2) * SQUARE + stage.x) > window.innerWidth) {
-            stage.x = -(player.x + 2) * SQUARE + window.innerWidth;
+        if (((pos.x - 1) * SQUARE + stage.x) < 0) {
+            stage.x = -(pos.x - 1) * SQUARE;
+        } else if (((pos.x + 2) * SQUARE + stage.x) > window.innerWidth) {
+            stage.x = -(pos.x + 2) * SQUARE + window.innerWidth;
         }
-        if (((player.y - 1) * SQUARE + stage.y) < 0) {
-            stage.y = -(player.y - 1) * SQUARE;
-        } else if (((player.y + 2) * SQUARE + stage.y) > window.innerHeight) {
-            stage.y = -(player.y + 2) * SQUARE + window.innerHeight;
+        if (((pos.y - 1) * SQUARE + stage.y) < 0) {
+            stage.y = -(pos.y - 1) * SQUARE;
+        } else if (((pos.y + 2) * SQUARE + stage.y) > window.innerHeight) {
+            stage.y = -(pos.y + 2) * SQUARE + window.innerHeight;
         }
 
         new Kinetic.Tween({
@@ -136,12 +123,12 @@ define([
         sprite.start();
     };
 
-    playerS.on('spawn', function (coord) {
-        moveTo(coord.x, coord.y, true);
+    player.on('spawn', function (pos) {
+        moveTo(pos.x, pos.y, true);
     });
 
-    playerS.on('move', function (coord) {
-        moveTo(coord.x, coord.y);
+    player.on('move', function (pos) {
+        moveTo(pos.x, pos.y);
     });
 
     $('#game-area').on('click', function (e) {
@@ -155,7 +142,7 @@ define([
         }
         newX = Math.floor((e.clientX - stagePos.x) / SQUARE);
         newY = Math.floor((e.clientY - stagePos.y) / SQUARE);
-        moveTo(newX, newY);
+        player.move(newX, newY);
     });
 
     $(document).on('keydown', function (e) {
@@ -163,19 +150,19 @@ define([
             return;
         }
         if (e.keyCode === 37 || e.keyCode === 65) {
-            moveTo(player.x - 1, player.y);
+            player.move(pos.x - 1, pos.y);
             keyMove = true;
         }
         else if (e.keyCode === 39 || e.keyCode === 68) {
-            moveTo(player.x + 1, player.y);
+            player.move(pos.x + 1, pos.y);
             keyMove = true;
         }
         else if (e.keyCode === 38 || e.keyCode === 87) {
-            moveTo(player.x, player.y - 1);
+            player.move(pos.x, pos.y - 1);
             keyMove = true;
         }
         else if (e.keyCode === 40 || e.keyCode === 83) {
-            moveTo(player.x, player.y + 1);
+            player.move(pos.x, pos.y + 1);
             keyMove = true;
         }
     });
