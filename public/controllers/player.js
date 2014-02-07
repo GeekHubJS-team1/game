@@ -1,5 +1,6 @@
 define(['jquery', 'kinetic'], function ($, Kinetic) {
-    var SQUARE = 128,
+    var keyMove = false,
+        SQUARE = 128,
         MAP_SIZE = 25,
         SPEED = 5,
         userLayer, image, moving, sprite,
@@ -36,7 +37,9 @@ define(['jquery', 'kinetic'], function ($, Kinetic) {
             x: x * SQUARE,
             y: y * SQUARE,
             onFinish: function () {
-                sprite.setAnimation('idle');
+                if (keyMove === false) {
+                    sprite.setAnimation('idle');
+                }
                 moving = false;
             }
         }).play();
@@ -136,15 +139,26 @@ define(['jquery', 'kinetic'], function ($, Kinetic) {
         }
         if (e.keyCode === 37 || e.keyCode === 65) {
             moveTo(player.x - 1, player.y);
+            keyMove = true;
         }
         else if (e.keyCode === 39 || e.keyCode === 68) {
             moveTo(player.x + 1, player.y);
+            keyMove = true;
         }
         else if (e.keyCode === 38 || e.keyCode === 87) {
             moveTo(player.x, player.y - 1);
+            keyMove = true;
         }
         else if (e.keyCode === 40 || e.keyCode === 83) {
             moveTo(player.x, player.y + 1);
+            keyMove = true;
+        }
+    });
+    $(document).on('keyup', function (e) {
+        if (e.keyCode === 37 || e.keyCode === 65 || e.keyCode === 39 || e.keyCode === 68 || e.keyCode === 38 ||
+        e.keyCode === 87 || e.keyCode === 40 || e.keyCode === 83) {
+            keyMove = false;
+            sprite.setAnimation('idle');
         }
     });
 
