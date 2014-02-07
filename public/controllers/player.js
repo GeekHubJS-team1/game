@@ -155,10 +155,11 @@ define(['jquery', 'kinetic'], function ($, Kinetic) {
         }
     });
     $(document).on('keyup', function (e) {
-        if (e.keyCode === 37 || e.keyCode === 65 || e.keyCode === 39 || e.keyCode === 68 || e.keyCode === 38 ||
-        e.keyCode === 87 || e.keyCode === 40 || e.keyCode === 83) {
+        if ([37, 65, 39, 68, 38, 87, 40, 83].indexOf(e.keyCode) > -1) {
             keyMove = false;
-            sprite.setAnimation('idle');
+            if (!moving) {
+                sprite.setAnimation('idle');
+            }
         }
     });
 
