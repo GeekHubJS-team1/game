@@ -1,9 +1,15 @@
-define(['jquery', 'kinetic'], function ($, Kinetic) {
-    var keyMove = false,
-        SQUARE = 128,
+define([
+    'jquery',
+    'kinetic',
+    'services/player'
+], function ($, Kinetic, playerS) {
+    var SQUARE = 128,
         MAP_SIZE = 25,
         SPEED = 5,
-        userLayer, image, moving, sprite,
+        SPAWN_SPEED = .1,
+        keyMove = false,
+        userLayer, image, moving,
+        sprite = {setAnimation: function () {}}, // to prevent error when image is not loaded
         player = {x: 0, y: 0};
 
     function checkPos(x, y) {
@@ -17,18 +23,25 @@ define(['jquery', 'kinetic'], function ($, Kinetic) {
         return true;
     }
 
-    function moveTo(x, y) {
+    function moveTo(x, y, spawn) {
         var speed;
         if (!checkPos(x, y)) {
             return;
         }
-        speed = Math.sqrt(Math.pow(player.x - x, 2) + Math.pow(player.y - y, 2)) / SPEED;
+        console.log('new position', x, y);
+        if (spawn) {
+            speed = SPAWN_SPEED;
+        } else {
+            speed = Math.sqrt(Math.pow(player.x - x, 2) + Math.pow(player.y - y, 2)) / SPEED;
+        }
         if (x > player.x) {
             sprite.setAnimation('right');
         } else if (x < player.x) {
             sprite.setAnimation('left');
         } else if (y < player.y) {
             sprite.setAnimation('up');
+        } else {
+            sprite.setAnimation('idle');
         }
         moving = true;
         new Kinetic.Tween({
@@ -50,6 +63,10 @@ define(['jquery', 'kinetic'], function ($, Kinetic) {
 
     function moveStage(speed) {
         var stage = userLayer.parent;
+        if (speed === SPAWN_SPEED) {
+            stage.x = -(player.x + .5) * SQUARE + window.innerWidth / 2;
+            stage.y = -(player.y + .5) * SQUARE + window.innerHeight / 2;
+        }
         if (((player.x - 1) * SQUARE + stage.x) < 0) {
             stage.x = -(player.x - 1) * SQUARE;
         } else if (((player.x + 2) * SQUARE + stage.x) > window.innerWidth) {
@@ -60,6 +77,7 @@ define(['jquery', 'kinetic'], function ($, Kinetic) {
         } else if (((player.y + 2) * SQUARE + stage.y) > window.innerHeight) {
             stage.y = -(player.y + 2) * SQUARE + window.innerHeight;
         }
+
         new Kinetic.Tween({
             node: userLayer.parent,
             duration: speed,
@@ -116,8 +134,15 @@ define(['jquery', 'kinetic'], function ($, Kinetic) {
 
         // start sprite animation
         sprite.start();
-        moveTo(2, 2);
     };
+
+    playerS.on('spawn', function (coord) {
+        moveTo(coord.x, coord.y, true);
+    });
+
+    playerS.on('move', function (coord) {
+        moveTo(coord.x, coord.y);
+    });
 
     $('#game-area').on('click', function (e) {
         if ($('#textMessage').is( ":focus" )) {

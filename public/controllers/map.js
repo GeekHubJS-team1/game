@@ -1,5 +1,6 @@
 define(['kinetic'], function (Kinetic) {
-    var MAP_SIZE = 25;
+    var MAP_SIZE = 25,
+        MARGIN_SIZE = 3072;
 
     var layer = new Kinetic.Layer();
 
@@ -13,10 +14,10 @@ define(['kinetic'], function (Kinetic) {
 
     imageGrass.onload = function () {
         var rect = new Kinetic.Rect({
-            x: -256,
-            y: -256,
-            width: (MAP_SIZE + 2) * 256,
-            height: (MAP_SIZE + 2) * 256,
+            x: -MARGIN_SIZE,
+            y: -MARGIN_SIZE,
+            width: MAP_SIZE * 256 + MARGIN_SIZE * 2,
+            height: MAP_SIZE * 256 + MARGIN_SIZE * 2,
             fillPatternImage: imageGrass
         });
         layer.add(rect);
