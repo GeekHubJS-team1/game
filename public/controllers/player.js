@@ -2,7 +2,7 @@ define(['jquery', 'kinetic'], function ($, Kinetic) {
     var SQUARE = 128,
         MAP_SIZE = 25,
         SPEED = 5,
-        userLayer, image, moving,
+        userLayer, image, moving, sprite,
         player = {x: 0, y: 0};
 
     function checkPos(x, y) {
@@ -22,7 +22,13 @@ define(['jquery', 'kinetic'], function ($, Kinetic) {
             return;
         }
         speed = Math.sqrt(Math.pow(player.x - x, 2) + Math.pow(player.y - y, 2)) / SPEED;
-        console.log(speed)
+        if (x > player.x) {
+            sprite.setAnimation('right');
+        } else if (x < player.x) {
+            sprite.setAnimation('left');
+        } else if (y < player.y) {
+            sprite.setAnimation('up');
+        }
         moving = true;
         new Kinetic.Tween({
             node: userLayer,
@@ -30,6 +36,7 @@ define(['jquery', 'kinetic'], function ($, Kinetic) {
             x: x * SQUARE,
             y: y * SQUARE,
             onFinish: function () {
+                sprite.setAnimation('idle');
                 moving = false;
             }
         }).play();
@@ -66,17 +73,46 @@ define(['jquery', 'kinetic'], function ($, Kinetic) {
     });
 
     image = new Image();
-    image.src = 'images/users/user1.png';
+    image.src = 'images/users/user.png';
     image.onload = function () {
-        var user = new Kinetic.Image({
+        sprite = new Kinetic.Sprite({
             x: 0,
             y: 0,
             image: image,
-            width: SQUARE,
-            height: SQUARE
+            animation: 'idle',
+            animations: {
+                idle: [{
+                    x: 0,
+                    y: 0,
+                    width: 128,
+                    height: 128
+                }],
+                up: [{
+                    x: 128,
+                    y: 0,
+                    width: 128,
+                    height: 128
+                }],
+                right: [{
+                    x: 256,
+                    y: 0,
+                    width: 128,
+                    height: 128
+                }],
+                left: [{
+                    x: 384,
+                    y: 0,
+                    width: 128,
+                    height: 128
+                }]
+            }
         });
-        // add the shape to the userLayer
-        userLayer.add(user);
+
+        // add the shape to the layer
+        userLayer.add(sprite);
+
+        // start sprite animation
+        sprite.start();
         moveTo(2, 2);
     };
 
