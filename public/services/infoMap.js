@@ -7,4 +7,5 @@ define([
     socket.on('map', function (map) {
         infoMap.emit('map', map);
     });
+    return infoMap;
 });
