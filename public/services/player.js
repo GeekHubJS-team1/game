@@ -14,6 +14,10 @@ define([
         player.emit('spawn', pos);
     });
 
+    socket.on('map', function (map) {
+        player.emit('map', map);
+    });
+
     socket.on('move', function (pos) {
         player.emit('move', pos);
     });

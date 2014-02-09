@@ -10,7 +10,11 @@ define([
         keyMove = false,
         userLayer, image, moving,
         sprite = {setAnimation: function () {}}, // to prevent error when image is not loaded
-        pos = {x: 0, y: 0};
+        pos = {x: 0, y: 0},
+        map = [];
+        for(i = 0; i < 25; i++) {
+            map[i] = new Array(25);
+        }
 
 
     function moveTo(x, y, spawn) {
@@ -125,6 +129,10 @@ define([
 
     player.on('spawn', function (pos) {
         moveTo(pos.x, pos.y, true);
+    });
+
+    player.on('map', function(gotMap) {
+        map = gotMap;
     });
 
     player.on('move', function (pos) {
