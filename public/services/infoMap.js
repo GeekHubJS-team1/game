@@ -1,7 +1,7 @@
 define([
     'services/socket',
     'EventEmitter'
-], function() {
+], function(socket, EventEmitter) {
     var infoMap = new EventEmitter();
 
     socket.on('map', function (map) {

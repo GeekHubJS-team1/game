@@ -91,26 +91,26 @@ define([
                 idle: [{
                     x: 0,
                     y: 0,
-                    width: 128,
-                    height: 128
+                    width: SQUARE,
+                    height: SQUARE
                 }],
                 up: [{
-                    x: 128,
+                    x: SQUARE,
                     y: 0,
-                    width: 128,
-                    height: 128
+                    width: SQUARE,
+                    height: SQUARE
                 }],
                 right: [{
-                    x: 256,
+                    x: 2*SQUARE,
                     y: 0,
-                    width: 128,
-                    height: 128
+                    width: SQUARE,
+                    height: SQUARE
                 }],
                 left: [{
-                    x: 384,
+                    x: 3*SQUARE,
                     y: 0,
-                    width: 128,
-                    height: 128
+                    width: SQUARE,
+                    height: SQUARE
                 }]
             }
         });
