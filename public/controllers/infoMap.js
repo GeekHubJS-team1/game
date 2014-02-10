@@ -10,8 +10,8 @@ define([
         otherUsersLayer = new Kinetic.Layer({
             x: SQUARE,
             y: SQUARE,
-            width: MAP_SIZE * SQUARE*2,
-            height: MAP_SIZE * SQUARE*2
+            width: MAP_SIZE * SQUARE * 2,
+            height: MAP_SIZE * SQUARE * 2
         });
 
     infoMap.on('map', function(gotMap) {
@@ -40,7 +40,7 @@ define([
             duration: speed,
             x: x * SQUARE,
             y: y * SQUARE,
-            onFinish: function () {
+            onFinish: function() {
                 if (keyMove === false) {
                     sprite.setAnimation('idle');
                 }
@@ -51,57 +51,56 @@ define([
         pos.y = y;
     }
 
-//    infoMap.on('move', function(oldPos){});
-    for (var xPos = 0; xPos < 25; xPos++) {
-        sprites[xPos] = new Array(25);
-        for (var yPos = 0; yPos < 25; yPos++) {
-            if (map.user != '') {
-                image = new Image();
-                image.src = 'images/users/user.png';
-                image.onload = function () {
-                    sprite[xPos][yPos] = new Kinetic.Sprite({
-                        x: 0,
-                        y: 0,
-                        image: image,
-                        animation: 'idle',
-                        animations: {
-                            idle: [{
-                                x: 0,
-                                y: 0,
-                                width: SQUARE,
-                                height: SQUARE
-                            }],
-                            up: [{
-                                x: SQUARE,
-                                y: 0,
-                                width: SQUARE,
-                                height: SQUARE
-                            }],
-                            right: [{
-                                x: 2*SQUARE,
-                                y: 0,
-                                width: SQUARE,
-                                height: SQUARE
-                            }],
-                            left: [{
-                                x: 3*SQUARE,
-                                y: 0,
-                                width: SQUARE,
-                                height: SQUARE
-                            }]
-                        }
-                    });
+    //    infoMap.on('move', function(oldPos){});
+    image = new Image();
+    image.src = 'images/users/user.png';
+    image.onload = function() {
+        for (var xPos = 0; xPos < 25; xPos++) {
+            sprites[xPos] = new Array(25);
+            for (var yPos = 0; yPos < 25; yPos++) {
+                if (!map.user) {
+                    return;
+                }
+                sprites[xPos][yPos] = new Kinetic.Sprite({
+                    x: 0,
+                    y: 0,
+                    image: image,
+                    frameRate: 1,
+                    animation: 'idle',
+                    animations: {
+                        idle: [{
+                            x: 0,
+                            y: 0,
+                            width: SQUARE,
+                            height: SQUARE
+                        }],
+                        up: [{
+                            x: SQUARE,
+                            y: 0,
+                            width: SQUARE,
+                            height: SQUARE
+                        }],
+                        right: [{
+                            x: 2 * SQUARE,
+                            y: 0,
+                            width: SQUARE,
+                            height: SQUARE
+                        }],
+                        left: [{
+                            x: 3 * SQUARE,
+                            y: 0,
+                            width: SQUARE,
+                            height: SQUARE
+                        }]
+                    }
+                });
 
 
-                    // add the shape to the layer
-                    otherUsersLayer.add(sprite);
-
-                    // start sprite animation
-                    sprite.start();
-                };
+                // add the shape to the layer
+                otherUsersLayer.add(sprites[xPos][yPos]);
             }
         }
-    }
+    };
 
     return otherUsersLayer;
 });

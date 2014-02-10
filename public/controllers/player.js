@@ -86,6 +86,7 @@ define([
             x: 0,
             y: 0,
             image: image,
+            frameRate: 1,
             animation: 'idle',
             animations: {
                 idle: [{
@@ -117,9 +118,6 @@ define([
 
         // add the shape to the layer
         userLayer.add(sprite);
-
-        // start sprite animation
-        sprite.start();
     };
 
     player.on('spawn', function (pos) {
