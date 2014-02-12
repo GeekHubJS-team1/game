@@ -2,105 +2,95 @@ define([
     'jquery',
     'kinetic',
     'services/infoMap'
-], function($, Kinetic, infoMap) {
+], function ($, Kinetic, infoMap) {
     var SQUARE = 128,
         MAP_SIZE = 25,
-        map = [],
-        sprites = [],
-        otherUsersLayer = new Kinetic.Layer({
-            x: SQUARE,
-            y: SQUARE,
-            width: MAP_SIZE * SQUARE * 2,
-            height: MAP_SIZE * SQUARE * 2
-        });
+        SPEED = 5,
+        users = {};
+    otherUsersLayer = new Kinetic.Layer();
 
-    infoMap.on('map', function(gotMap) {
-        map = gotMap;
-    });
-
-    function moveTo(oldX, oldY, x, y, spawn) {
-        var speed;
-        if (spawn) {
-            speed = SPAWN_SPEED;
+    infoMap.on('move', function (user, pos) {
+        var oldPos = users[user].pos,
+            sprite = users[user].sprite
+        if (pos.x > oldPos.x) {
+            sprite.setAnimation('right');
+        } else if (pos.x < oldPos.x) {
+            sprite.setAnimation('left');
+        } else if (pos.y < oldPos.y) {
+            sprite.setAnimation('up');
         } else {
-            speed = Math.sqrt(Math.pow(pos.x - x, 2) + Math.pow(pos.y - y, 2)) / SPEED;
+            sprite.setAnimation('idle');
         }
-        if (x > pos.x) {
-            sprites[oldX][oldY].setAnimation('right');
-        } else if (x < pos.x) {
-            sprites[oldX][oldY].setAnimation('left');
-        } else if (y < pos.y) {
-            sprites[oldX][oldY].setAnimation('up');
-        } else {
-            sprites[oldX][oldY].setAnimation('idle');
-        }
-        moving = true;
+        speed = Math.sqrt(Math.pow(oldPos.x - pos.x, 2) + Math.pow(oldPos.y - pos.y, 2)) / SPEED;
         new Kinetic.Tween({
-            node: userLayer,
+            node: sprite,
             duration: speed,
-            x: x * SQUARE,
-            y: y * SQUARE,
-            onFinish: function() {
-                if (keyMove === false) {
-                    sprite.setAnimation('idle');
-                }
-                moving = false;
+            x: pos.x * SQUARE,
+            y: pos.y * SQUARE,
+            onFinish: function () {
+                sprite.setAnimation('idle');
             }
         }).play();
-        pos.x = x;
-        pos.y = y;
-    }
+        users[user].pos = pos;
+    });
 
-    //    infoMap.on('move', function(oldPos){});
+    infoMap.on('spawn', function (user, pos) {
+        var sprite = new Kinetic.Sprite({
+            x: pos.x * SQUARE,
+            y: pos.y * SQUARE,
+            image: image,
+            frameRate: 1,
+            animation: 'idle',
+            animations: {
+                idle: [
+                    {
+                        x: 0,
+                        y: 0,
+                        width: SQUARE,
+                        height: SQUARE
+                    }
+                ],
+                up: [
+                    {
+                        x: SQUARE,
+                        y: 0,
+                        width: SQUARE,
+                        height: SQUARE
+                    }
+                ],
+                right: [
+                    {
+                        x: 2 * SQUARE,
+                        y: 0,
+                        width: SQUARE,
+                        height: SQUARE
+                    }
+                ],
+                left: [
+                    {
+                        x: 3 * SQUARE,
+                        y: 0,
+                        width: SQUARE,
+                        height: SQUARE
+                    }
+                ]
+            }
+        });
+        otherUsersLayer.add(sprite);
+        users[user] = {
+            sprite: sprite,
+            pos: pos
+        };
+    });
+
+    infoMap.on('out', function (user) {
+        users[user].sprite.remove();
+        otherUsersLayer.draw();
+        delete users[user];
+    });
+
     image = new Image();
     image.src = 'images/users/user.png';
-    image.onload = function() {
-        for (var xPos = 0; xPos < 25; xPos++) {
-            sprites[xPos] = new Array(25);
-            for (var yPos = 0; yPos < 25; yPos++) {
-                if (!map.user) {
-                    return;
-                }
-                sprites[xPos][yPos] = new Kinetic.Sprite({
-                    x: 0,
-                    y: 0,
-                    image: image,
-                    frameRate: 1,
-                    animation: 'idle',
-                    animations: {
-                        idle: [{
-                            x: 0,
-                            y: 0,
-                            width: SQUARE,
-                            height: SQUARE
-                        }],
-                        up: [{
-                            x: SQUARE,
-                            y: 0,
-                            width: SQUARE,
-                            height: SQUARE
-                        }],
-                        right: [{
-                            x: 2 * SQUARE,
-                            y: 0,
-                            width: SQUARE,
-                            height: SQUARE
-                        }],
-                        left: [{
-                            x: 3 * SQUARE,
-                            y: 0,
-                            width: SQUARE,
-                            height: SQUARE
-                        }]
-                    }
-                });
-
-
-                // add the shape to the layer
-                otherUsersLayer.add(sprites[xPos][yPos]);
-            }
-        }
-    };
 
     return otherUsersLayer;
 });
