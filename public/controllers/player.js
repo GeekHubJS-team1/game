@@ -120,8 +120,19 @@ define([
         userLayer.add(sprite);
     };
 
-    player.on('spawn', function (pos) {
+    player.on('spawn', function (pos, userLogin) {
         moveTo(pos.x, pos.y, true);
+        var text = new Kinetic.Text({
+            x: 0,
+            y: -20,
+            width: SQUARE,
+            text: userLogin,
+            align: 'center',
+            fontSize: 12,
+            fontFamily: 'PressStart2P',
+            fill: '#8ad3d6'
+        });
+        userLayer.add(text);
     });
 
     player.on('move', function (pos) {
