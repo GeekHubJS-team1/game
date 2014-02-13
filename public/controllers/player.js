@@ -1,8 +1,9 @@
 define([
     'jquery',
     'kinetic',
-    'services/player'
-], function ($, Kinetic, player) {
+    'services/player',
+    'json!sprites.json'
+], function ($, Kinetic, player, sprites) {
     var SQUARE = 128,
         MAP_SIZE = 25,
         SPEED = 5,
@@ -79,70 +80,44 @@ define([
         height: SQUARE
     });
 
-    image = new Image();
-    image.src = 'images/users/user.png';
-    image.onload = function () {
-        sprite = new Kinetic.Sprite({
-            x: 0,
-            y: 0,
-            image: image,
-            frameRate: 1,
-            animation: 'idle',
-            animations: {
-                idle: [{
-                    x: 0,
-                    y: 0,
-                    width: SQUARE,
-                    height: SQUARE
-                }],
-                up: [{
-                    x: SQUARE,
-                    y: 0,
-                    width: SQUARE,
-                    height: SQUARE
-                }],
-                right: [{
-                    x: 2*SQUARE,
-                    y: 0,
-                    width: SQUARE,
-                    height: SQUARE
-                }],
-                left: [{
-                    x: 3*SQUARE,
-                    y: 0,
-                    width: SQUARE,
-                    height: SQUARE
-                }]
-            }
-        });
-
-        // add the shape to the layer
-        userLayer.add(sprite);
-    };
-
     player.on('spawn', function (pos, userLogin) {
-        moveTo(pos.x, pos.y, true);
-        var rect = new Kinetic.Rect({
-            x: 0,
-            y: -27,
-            fill: '#004047',
-            opacity: 0.5,
-            width: SQUARE,
-            height: 25,
-            cornerRadius: 5
-        });
-        var userName = new Kinetic.Text({
-            x: 0,
-            y: -20,
-            width: SQUARE,
-            text: userLogin,
-            align: 'center',
-            fontSize: 12,
-            fontFamily: 'PressStart2P',
-            fill: '#8ad3d6'
-        });
-        userLayer.add(rect);
-        userLayer.add(userName);
+        image = new Image();
+        image.onload = function () {
+            sprite = new Kinetic.Sprite({
+                x: 0,
+                y: 0,
+                image: image,
+                frameRate: 1,
+                animation: 'idle',
+                animations: sprites.geek.animations
+            });
+            var rect = new Kinetic.Rect({
+                x: 0,
+                y: -27,
+                fill: '#004047',
+                opacity: 0.5,
+                width: SQUARE,
+                height: 25,
+                cornerRadius: 5
+            });
+            var userName = new Kinetic.Text({
+                x: 0,
+                y: -20,
+                width: SQUARE,
+                text: userLogin,
+                align: 'center',
+                fontSize: 12,
+                fontFamily: 'PressStart2P',
+                fill: '#8ad3d6'
+            });
+
+            userLayer.add(rect);
+            userLayer.add(userName);
+            userLayer.add(sprite);
+
+            moveTo(pos.x, pos.y, true);
+        };
+        image.src = 'images/users/' + sprites.geek.file;
     });
 
     player.on('move', function (pos) {

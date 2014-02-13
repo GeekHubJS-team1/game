@@ -17,8 +17,8 @@ define([
     stage.x = stage.y = SQUARE;
 
     stage.add(map);
-    stage.add(player);
     stage.add(infoMap);
+    stage.add(player);
 
     window.addEventListener('resize', function () {
         stage.setWidth(container.clientWidth);

@@ -1,8 +1,9 @@
 define([
     'jquery',
     'kinetic',
-    'services/infoMap'
-], function ($, Kinetic, infoMap) {
+    'services/infoMap',
+    'json!sprites.json'
+], function ($, Kinetic, infoMap, sprites) {
     var SQUARE = 128,
         MAP_SIZE = 25,
         SPEED = 5,
@@ -32,85 +33,59 @@ define([
                 sprite.setAnimation('idle');
             }
         }).play();
+        group.setZIndex(pos.y);
         users[user].pos = pos;
     });
 
     infoMap.on('spawn', function (user, pos) {
-        var group = new Kinetic.Group({
-            x: pos.x * SQUARE,
-            y: pos.y * SQUARE
-        });
-        var sprite = new Kinetic.Sprite({
-            x: 0,
-            y: 0,
-            image: image,
-            frameRate: 1,
-            animation: 'idle',
-            animations: {
-                idle: [
-                    {
-                        x: 0,
-                        y: 0,
-                        width: SQUARE,
-                        height: SQUARE
-                    }
-                ],
-                up: [
-                    {
-                        x: SQUARE,
-                        y: 0,
-                        width: SQUARE,
-                        height: SQUARE
-                    }
-                ],
-                right: [
-                    {
-                        x: 2 * SQUARE,
-                        y: 0,
-                        width: SQUARE,
-                        height: SQUARE
-                    }
-                ],
-                left: [
-                    {
-                        x: 3 * SQUARE,
-                        y: 0,
-                        width: SQUARE,
-                        height: SQUARE
-                    }
-                ]
-            }
-        });
-        var userName = new Kinetic.Text({
-            x: 0,
-            y: -20,
-            width: SQUARE,
-            text: user,
-            align: 'center',
-            fontSize: 12,
-            fontFamily: 'PressStart2P',
-            fill: '#eb6a2b'
-        });
-        var rect = new Kinetic.Rect({
-            x: 0,
-            y: -27,
-            fill: '#000',
-            opacity: 0.5,
-            width: SQUARE,
-            height: 25,
-            cornerRadius: 5
-        });
-        userName.setZIndex(-10);
-        rect.setZIndex(-10);
-        group.add(rect);
-        group.add(sprite);
-        group.add(userName);
-        otherUsersLayer.add(group);
-        users[user] = {
-            sprite: sprite,
-            group: group,
-            pos: pos
+        image = new Image();
+        image.onload = function () {
+            var group = new Kinetic.Group({
+                x: pos.x * SQUARE,
+                y: pos.y * SQUARE
+            });
+            var sprite = new Kinetic.Sprite({
+                x: 0,
+                y: 0,
+                image: image,
+                frameRate: 1,
+                animation: 'idle',
+                animations: sprites.geek.animations
+            });
+            var userName = new Kinetic.Text({
+                x: 0,
+                y: -20,
+                width: SQUARE,
+                text: user,
+                align: 'center',
+                fontSize: 12,
+                fontFamily: 'PressStart2P',
+                fill: '#eb6a2b'
+            });
+            var rect = new Kinetic.Rect({
+                x: 0,
+                y: -27,
+                fill: '#000',
+                opacity: 0.5,
+                width: SQUARE,
+                height: 25,
+                cornerRadius: 5
+            });
+
+            group.add(rect);
+            group.add(sprite);
+            group.add(userName);
+            otherUsersLayer.add(group);
+            group.setZIndex(pos.y);
+
+            users[user] = {
+                sprite: sprite,
+                group: group,
+                pos: pos
+            };
         };
+        image.src = 'images/users/' + sprites.geek.file;
+
     });
 
     infoMap.on('out', function (user) {
@@ -118,9 +93,6 @@ define([
         otherUsersLayer.draw();
         delete users[user];
     });
-
-    image = new Image();
-    image.src = 'images/users/user.png';
 
     return otherUsersLayer;
 });

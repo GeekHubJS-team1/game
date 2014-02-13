@@ -1,0 +1,39 @@
+{
+    "geek": {
+        "file": "user.png",
+        "animations": {
+            "idle": [
+                {
+                    "x": 0,
+                    "y": 0,
+                    "width": 128,
+                    "height": 128
+                }
+            ],
+            "up": [
+                {
+                    "x": 128,
+                    "y": 0,
+                    "width": 128,
+                    "height": 128
+                }
+            ],
+            "right": [
+                {
+                    "x": 256,
+                    "y": 0,
+                    "width": 128,
+                    "height": 128
+                }
+            ],
+            "left": [
+                {
+                    "x": 384,
+                    "y": 0,
+                    "width": 128,
+                    "height": 128
+                }
+            ]
+        }
+    }
+}
