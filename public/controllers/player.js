@@ -122,7 +122,16 @@ define([
 
     player.on('spawn', function (pos, userLogin) {
         moveTo(pos.x, pos.y, true);
-        var text = new Kinetic.Text({
+        var rect = new Kinetic.Rect({
+            x: 0,
+            y: -27,
+            fill: '#004047',
+            opacity: 0.5,
+            width: SQUARE,
+            height: 25,
+            cornerRadius: 5
+        });
+        var userName = new Kinetic.Text({
             x: 0,
             y: -20,
             width: SQUARE,
@@ -132,7 +141,8 @@ define([
             fontFamily: 'PressStart2P',
             fill: '#8ad3d6'
         });
-        userLayer.add(text);
+        userLayer.add(rect);
+        userLayer.add(userName);
     });
 
     player.on('move', function (pos) {
