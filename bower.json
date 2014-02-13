@@ -8,6 +8,7 @@
     "jquery": "~2.0.3",
     "requirejs-text": "~2.0.10",
     "almond": "~0.2.9",
-    "eventEmitter": "~4.2.7"
+    "eventEmitter": "~4.2.7",
+    "requirejs-plugins": "~1.0.2"
   }
 }
