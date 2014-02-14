@@ -1,3 +1,10 @@
 define(['socket.io'], function (io) {
-    return io.connect();
+    var socket = io.connect();
+
+    socket.start = function () {
+        socket.on('login:success', function () {
+            socket.emit('start');
+        });
+    }
+    return socket;
 });

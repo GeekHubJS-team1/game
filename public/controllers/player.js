@@ -81,6 +81,7 @@ define([
     });
 
     player.on('spawn', function (pos, userLogin) {
+        userLayer.removeChildren();
         image = new Image();
         image.onload = function () {
             sprite = new Kinetic.Sprite({
