@@ -20,7 +20,15 @@ define(['kinetic'], function (Kinetic) {
             height: MAP_SIZE * 256 + MARGIN_SIZE * 2,
             fillPatternImage: imageGrass
         });
+        var bounds = new Kinetic.Rect({
+            x: 0,
+            y: 0,
+            width: MAP_SIZE * 256,
+            height: MAP_SIZE * 256,
+            stroke: '#ff0000'
+        });
         layer.add(rect);
+        layer.add(bounds);
         layer.draw();
     };
     layer.setScale(.5, .5);
