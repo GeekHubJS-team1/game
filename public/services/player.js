@@ -10,8 +10,9 @@ define([
         });
     };
 
-    socket.on('spawn', function (pos, userLogin) {
+    socket.on('spawn', function (userLogin, location, pos) {
         player.emit('spawn', pos, userLogin);
+        player.emit('map', location);
     });
 
     socket.on('move', function (pos) {

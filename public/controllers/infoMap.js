@@ -2,13 +2,13 @@ define([
     'jquery',
     'kinetic',
     'services/infoMap',
-    'json!sprites.json'
+    'json!data/sprites.json'
 ], function ($, Kinetic, infoMap, sprites) {
     var SQUARE = 128,
         MAP_SIZE = 25,
         SPEED = 5,
         users = {};
-    otherUsersLayer = new Kinetic.Layer();
+    var otherUsersLayer = new Kinetic.Layer();
 
     infoMap.on('move', function (user, pos) {
         var oldPos = users[user].pos,

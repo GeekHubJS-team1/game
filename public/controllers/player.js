@@ -2,7 +2,7 @@ define([
     'jquery',
     'kinetic',
     'services/player',
-    'json!sprites.json'
+    'json!data/sprites.json'
 ], function ($, Kinetic, player, sprites) {
     var SQUARE = 128,
         MAP_SIZE = 25,
