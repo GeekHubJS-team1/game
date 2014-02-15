@@ -49,10 +49,14 @@ define([
     }
 
     function moveStage(speed) {
-        var stage = userLayer.parent;
+        var stage = userLayer.parent,
+            stagePos = stage.getPosition();
         if (speed === SPAWN_SPEED) {
             stage.x = -(pos.x + .5) * SQUARE + window.innerWidth / 2;
             stage.y = -(pos.y + .5) * SQUARE + window.innerHeight / 2;
+            stage.setPosition(stage.x, stage.y);
+            stage.draw();
+            return;
         }
         if (((pos.x - 1) * SQUARE + stage.x) < 0) {
             stage.x = -(pos.x - 1) * SQUARE;
@@ -65,12 +69,14 @@ define([
             stage.y = -(pos.y + 2) * SQUARE + window.innerHeight;
         }
 
-        new Kinetic.Tween({
-            node: userLayer.parent,
-            duration: speed,
-            x: stage.x,
-            y: stage.y
-        }).play();
+        if (stagePos.x != stage.x || stagePos.y != stage.y) {
+            new Kinetic.Tween({
+                node: userLayer.parent,
+                duration: speed,
+                x: stage.x,
+                y: stage.y
+            }).play();
+        }
     }
 
     userLayer = new Kinetic.Layer({
@@ -80,7 +86,7 @@ define([
         height: SQUARE
     });
 
-    player.on('spawn', function (pos, userLogin) {
+    player.on('spawn', function (newPos, userLogin) {
         userLayer.removeChildren();
         image = new Image();
         image.onload = function () {
@@ -116,7 +122,10 @@ define([
             userLayer.add(userName);
             userLayer.add(sprite);
 
-            moveTo(pos.x, pos.y, true);
+            pos = newPos;
+            userLayer.setPosition(pos.x * SQUARE, pos.y * SQUARE);
+            moveStage(SPAWN_SPEED);
+            userLayer.draw();
         };
         image.src = 'images/users/' + sprites.geek.file;
     });

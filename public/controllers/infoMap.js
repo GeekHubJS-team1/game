@@ -10,6 +10,11 @@ define([
         users = {};
     var otherUsersLayer = new Kinetic.Layer();
 
+    infoMap.on('clear', function () {
+        users = {};
+        otherUsersLayer.removeChildren();
+    });
+
     infoMap.on('move', function (user, pos) {
         var oldPos = users[user].pos,
             sprite = users[user].sprite,
@@ -83,6 +88,8 @@ define([
                 group: group,
                 pos: pos
             };
+
+            otherUsersLayer.draw();
         };
         image.src = 'images/users/' + sprites.geek.file;
 

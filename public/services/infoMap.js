@@ -21,8 +21,11 @@ define([
     socket.on('user:move', function (user, pos) {
         infoMap.emit('move', user, pos);
     });
-    socket.on('user:out', function (user) {
+    socket.on('user:gone', function (user) {
         infoMap.emit('out', user);
+    });
+    socket.on('spawn', function (user) {
+        infoMap.emit('clear');
     });
     return infoMap;
 });

@@ -11,9 +11,9 @@
 	"sand": {
 		"file": "sand.jpg",
 		"doors": {
-			"sand": {
-				"x": 24,
-				"y": 0
+			"grass": {
+				"x": 0,
+				"y": 24
 			}
 		}
 	}
