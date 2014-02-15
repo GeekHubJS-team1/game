@@ -1,15 +1,22 @@
 define([
     'jquery',
     'kinetic',
+    'services/socket',
     'services/player',
-    'json!sprites.json'
-], function ($, Kinetic, player, sprites) {
+    'json!sprites.json',
+    'services/infoMap',
+    'controllers/infoBoxes'
+], function ($, Kinetic, socket, player, sprites, infoMap, infoBoxes) {
     var SQUARE = 128,
         MAP_SIZE = 25,
         SPEED = 5,
         SPAWN_SPEED = .1,
         keyMove = false,
-        userLayer, image, moving,
+        duel = {
+            proposition: false,
+            name: ''
+        },
+        userLayer, image, moving, newX, newY,
         sprite = {setAnimation: function () {}}, // to prevent error when image is not loaded
         pos = {x: 0, y: 0};
 
@@ -81,6 +88,7 @@ define([
     });
 
     player.on('spawn', function (pos, userLogin) {
+        duel.name = userLogin;
         image = new Image();
         image.onload = function () {
             sprite = new Kinetic.Sprite({
@@ -121,6 +129,9 @@ define([
     });
 
     player.on('move', function (pos) {
+//        $('p.duelInfo').fadeOut();
+//        $('li.duelInfo').remove();
+//        duel.proposition = false;
         moveTo(pos.x, pos.y);
     });
 
@@ -128,8 +139,7 @@ define([
         if ($('#textMessage').is( ":focus" )) {
             $('#textMessage').blur();
         }
-        var stagePos = userLayer.parent.getPosition(),
-            newX, newY;
+        var stagePos = userLayer.parent.getPosition();
         if (moving) {
             return;
         }
@@ -137,10 +147,26 @@ define([
         newY = Math.floor((e.clientY - stagePos.y) / SQUARE);
         player.move(newX, newY);
     });
+    $(document).on('dblclick', function (e) {
+        if (infoMap.map[newX][newY] != '' && !duel.proposition) {
+            $('p.duelInfo').fadeIn();
+            duel.proposition = true;
+        }
+
+    });
 
     $(document).on('keydown', function (e) {
         if (moving || $('#textMessage').is( ":focus" )) {
             return;
+        }
+        if (e.keyCode === 32 && duel.proposition === true) {
+            if (Math.abs(pos.x - newX) + Math.abs(pos.y - newY) <= 2) {
+                console.error(Math.abs(pos.x - newX) + 'DUEL' + Math.abs(pos.y - newY));
+                infoBoxes.duel(duel.name);
+//                socket.emit('duel:proposition', duel.name);
+                $('p.duelInfo').fadeOut();
+                duel.proposition = false;
+            }
         }
         if (e.keyCode === 37 || e.keyCode === 65) {
             player.move(pos.x - 1, pos.y);
