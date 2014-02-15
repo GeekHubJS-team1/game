@@ -3,15 +3,11 @@
  */
 define([
     'services/socket',
-    'services/player',
-    'controllers/infoBoxes',
     'EventEmitter'
-], function (player, infoBoxes, EventEmitter) {
+], function (socket, EventEmitter) {
     var duel = new EventEmitter();
-    socket.on('duel:proposition', function (name) {
-        duel.emit('duel:proposition', function (name) {
-            infoBoxes.duel(name);
-        });
+    socket.on('duel:proposition', function (name, pos) {
+        duel.emit('duel:proposition', name, pos);
     });
     return duel;
 });

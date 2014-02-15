@@ -1,19 +1,24 @@
 define([
     'jquery',
     'kinetic',
+    'services/duel',
     'services/socket',
     'services/player',
     'json!sprites.json',
     'services/infoMap',
     'controllers/infoBoxes'
-], function ($, Kinetic, socket, player, sprites, infoMap, infoBoxes) {
+], function ($, Kinetic, Duel,  socket, player, sprites, infoMap, infoBoxes) {
     var SQUARE = 128,
         MAP_SIZE = 25,
         SPEED = 5,
         SPAWN_SPEED = .1,
         keyMove = false,
         duel = {
-            proposition: false,
+            offerProgress: 0,
+            opponent: {
+              x: '',
+              y: ''
+            },
             name: ''
         },
         userLayer, image, moving, newX, newY,
@@ -129,11 +134,20 @@ define([
     });
 
     player.on('move', function (pos) {
-//        $('p.duelInfo').fadeOut();
-//        $('li.duelInfo').remove();
-//        duel.proposition = false;
+        if ((Math.abs(pos.x - duel.opponent.x) * SQUARE > window.innerWidth ||
+            Math.abs(pos.y - duel.opponent.y) * SQUARE > window.innerHeight) && duel.offerProgress != 0) {
+            duel.offerProgress = 0;
+            $('p.duelInfo').fadeOut();
+//            $('li.duelInfo').remove();
+        }
         moveTo(pos.x, pos.y);
     });
+
+    Duel.on('duel:proposition', function (name, pos) {
+        infoBoxes.duel(name);
+    });
+
+
 
     $('#game-area').on('click', function (e) {
         if ($('#textMessage').is( ":focus" )) {
@@ -148,25 +162,31 @@ define([
         player.move(newX, newY);
     });
     $(document).on('dblclick', function (e) {
-        if (infoMap.map[newX][newY] != '' && !duel.proposition) {
+        if (infoMap.map[newX][newY] != '' && duel.offerProgress === 0) {
             $('p.duelInfo').fadeIn();
-            duel.proposition = true;
+            duel.offerProgress++;
+            duel.opponent.x = newX;
+            duel.opponent.y = newY;
         }
-
     });
 
     $(document).on('keydown', function (e) {
         if (moving || $('#textMessage').is( ":focus" )) {
             return;
         }
-        if (e.keyCode === 32 && duel.proposition === true) {
-            if (Math.abs(pos.x - newX) + Math.abs(pos.y - newY) <= 2) {
-                console.error(Math.abs(pos.x - newX) + 'DUEL' + Math.abs(pos.y - newY));
-                infoBoxes.duel(duel.name);
-//                socket.emit('duel:proposition', duel.name);
+        if (e.keyCode === 32 && duel.offerProgress === 1) {
+            if (Math.abs(pos.x -  duel.opponent.x) + Math.abs(pos.y -  duel.opponent.y) <= 2) {
+//                infoBoxes.duel(duel.name);
+
+                socket.emit('duel:offerProgress', duel.name, pos);
+
                 $('p.duelInfo').fadeOut();
-                duel.proposition = false;
+                duel.offerProgress++;
             }
+        }
+        if (e.keyCode === 27 && duel.offerProgress === 1) {
+                $('p.duelInfo').fadeOut();
+                duel.offerProgress = 0;
         }
         if (e.keyCode === 37 || e.keyCode === 65) {
             player.move(pos.x - 1, pos.y);
