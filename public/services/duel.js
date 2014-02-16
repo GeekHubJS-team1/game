@@ -3,11 +3,18 @@
  */
 define([
     'services/socket',
+    'controllers/infoBoxes',
     'EventEmitter'
-], function (socket, EventEmitter) {
+], function (socket, infoBoxes, EventEmitter) {
     var duel = new EventEmitter();
+    duel.proposition = function (name, pos) {
+        socket.emit('duel:proposition', name, pos);
+//        infoBoxes.duel(name);
+    };
+
     socket.on('duel:proposition', function (name, pos) {
         duel.emit('duel:proposition', name, pos);
     });
+
     return duel;
 });

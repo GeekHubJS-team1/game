@@ -2,12 +2,11 @@ define([
     'jquery',
     'kinetic',
     'services/duel',
-    'services/socket',
     'services/player',
     'json!sprites.json',
     'services/infoMap',
     'controllers/infoBoxes'
-], function ($, Kinetic, Duel,  socket, player, sprites, infoMap, infoBoxes) {
+], function ($, Kinetic, Duel, player, sprites, infoMap, infoBoxes) {
     var SQUARE = 128,
         MAP_SIZE = 25,
         SPEED = 5,
@@ -176,10 +175,7 @@ define([
         }
         if (e.keyCode === 32 && duel.offerProgress === 1) {
             if (Math.abs(pos.x -  duel.opponent.x) + Math.abs(pos.y -  duel.opponent.y) <= 2) {
-//                infoBoxes.duel(duel.name);
-
-                socket.emit('duel:offerProgress', duel.name, pos);
-
+                Duel.proposition(duel.name, pos);
                 $('p.duelInfo').fadeOut();
                 duel.offerProgress++;
             }
