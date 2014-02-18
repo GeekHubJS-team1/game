@@ -1,10 +1,16 @@
 define(['socket.io'], function (io) {
-    var socket = io.connect();
+    var connected = false,
+        started = false,
+        socket = io.connect();
+
+    socket.on('login:success', function () {
+        connected = true;
+        started && socket.emit('start');
+    });
 
     socket.start = function () {
-        socket.on('login:success', function () {
-            socket.emit('start');
-        });
+        started = true;
+        connected && socket.emit('start');
     }
     return socket;
 });

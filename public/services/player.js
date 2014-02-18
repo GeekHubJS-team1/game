@@ -15,8 +15,8 @@ define([
         player.emit('map', location);
     });
 
-    socket.on('move', function (pos) {
-        player.emit('move', pos);
+    socket.on('move', function (pos, duration) {
+        player.emit('move', pos, duration);
     });
 
     return player;

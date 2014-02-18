@@ -6,21 +6,17 @@ define([
 ], function ($, Kinetic, player, sprites) {
     var SQUARE = 128,
         MAP_SIZE = 25,
-        SPEED = 5,
-        SPAWN_SPEED = .1,
+        SPAWN = .1,
         keyMove = false,
         userLayer, image, moving,
-        sprite = {setAnimation: function () {}}, // to prevent error when image is not loaded
+    // to prevent error when image is not loaded
+        sprite = {setAnimation: function () {}},
+    // empty tweens
+        playerTween, stageTween = playerTween = {finish: function () {}},
         pos = {x: 0, y: 0};
 
-    function moveTo(x, y, spawn) {
-        var speed;
+    function moveTo(x, y, duration) {
         console.log('new position', x, y);
-        if (spawn) {
-            speed = SPAWN_SPEED;
-        } else {
-            speed = Math.sqrt(Math.pow(pos.x - x, 2) + Math.pow(pos.y - y, 2)) / SPEED;
-        }
         if (x > pos.x) {
             sprite.setAnimation('right');
         } else if (x < pos.x) {
@@ -31,9 +27,9 @@ define([
             sprite.setAnimation('idle');
         }
         moving = true;
-        new Kinetic.Tween({
+        playerTween = new Kinetic.Tween({
             node: userLayer,
-            duration: speed,
+            duration: duration,
             x: x * SQUARE,
             y: y * SQUARE,
             onFinish: function () {
@@ -42,16 +38,17 @@ define([
                 }
                 moving = false;
             }
-        }).play();
+        });
+        playerTween.play();
         pos.x = x;
         pos.y = y;
-        moveStage(speed);
+        moveStage(duration);
     }
 
-    function moveStage(speed) {
+    function moveStage(duration) {
         var stage = userLayer.parent,
             stagePos = stage.getPosition();
-        if (speed === SPAWN_SPEED) {
+        if (duration === SPAWN) {
             stage.x = -(pos.x + .5) * SQUARE + window.innerWidth / 2;
             stage.y = -(pos.y + .5) * SQUARE + window.innerHeight / 2;
             stage.setPosition(stage.x, stage.y);
@@ -70,12 +67,13 @@ define([
         }
 
         if (stagePos.x != stage.x || stagePos.y != stage.y) {
-            new Kinetic.Tween({
+            stageTween = new Kinetic.Tween({
                 node: userLayer.parent,
-                duration: speed,
+                duration: duration,
                 x: stage.x,
                 y: stage.y
-            }).play();
+            });
+            stageTween.play();
         }
     }
 
@@ -123,19 +121,22 @@ define([
             userLayer.add(sprite);
 
             pos = newPos;
+            // stop tweens
+            playerTween.finish();
+            stageTween.finish();
             userLayer.setPosition(pos.x * SQUARE, pos.y * SQUARE);
-            moveStage(SPAWN_SPEED);
+            moveStage(SPAWN);
             userLayer.draw();
         };
         image.src = 'images/users/' + sprites.geek.file;
     });
 
-    player.on('move', function (pos) {
-        moveTo(pos.x, pos.y);
+    player.on('move', function (pos, duration) {
+        moveTo(pos.x, pos.y, duration);
     });
 
     $('#game-area').on('click', function (e) {
-        if ($('#textMessage').is( ":focus" )) {
+        if ($('#textMessage').is(":focus")) {
             $('#textMessage').blur();
         }
         var stagePos = userLayer.parent.getPosition(),
@@ -149,7 +150,7 @@ define([
     });
 
     $(document).on('keydown', function (e) {
-        if (moving || $('#textMessage').is( ":focus" )) {
+        if (moving || $('#textMessage').is(":focus")) {
             return;
         }
         if (e.keyCode === 37 || e.keyCode === 65) {

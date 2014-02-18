@@ -6,7 +6,6 @@ define([
 ], function ($, Kinetic, infoMap, sprites) {
     var SQUARE = 128,
         MAP_SIZE = 25,
-        SPEED = 5,
         users = {};
     var otherUsersLayer = new Kinetic.Layer();
 
@@ -15,7 +14,7 @@ define([
         otherUsersLayer.removeChildren();
     });
 
-    infoMap.on('move', function (user, pos) {
+    infoMap.on('move', function (user, pos, duration) {
         var oldPos = users[user].pos,
             sprite = users[user].sprite,
             group = users[user].group;
@@ -28,10 +27,9 @@ define([
         } else {
             sprite.setAnimation('idle');
         }
-        speed = Math.sqrt(Math.pow(oldPos.x - pos.x, 2) + Math.pow(oldPos.y - pos.y, 2)) / SPEED;
         new Kinetic.Tween({
             node: group,
-            duration: speed,
+            duration: duration,
             x: pos.x * SQUARE,
             y: pos.y * SQUARE,
             onFinish: function () {

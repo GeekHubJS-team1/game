@@ -18,8 +18,8 @@ define([
     socket.on('user:spawn', function (user, pos) {
         infoMap.emit('spawn', user, pos);
     });
-    socket.on('user:move', function (user, pos) {
-        infoMap.emit('move', user, pos);
+    socket.on('user:move', function (user, pos, duration) {
+        infoMap.emit('move', user, pos, duration);
     });
     socket.on('user:gone', function (user) {
         infoMap.emit('out', user);
