@@ -2,15 +2,19 @@ define([
     'jquery',
     'kinetic',
     'services/infoMap',
-    'json!sprites.json'
+    'json!data/sprites.json'
 ], function ($, Kinetic, infoMap, sprites) {
     var SQUARE = 128,
         MAP_SIZE = 25,
-        SPEED = 5,
         users = {};
-    otherUsersLayer = new Kinetic.Layer();
+    var otherUsersLayer = new Kinetic.Layer();
 
-    infoMap.on('move', function (user, pos) {
+    infoMap.on('clear', function () {
+        users = {};
+        otherUsersLayer.removeChildren();
+    });
+
+    infoMap.on('move', function (user, pos, duration) {
         var oldPos = users[user].pos,
             sprite = users[user].sprite,
             group = users[user].group;
@@ -23,10 +27,9 @@ define([
         } else {
             sprite.setAnimation('idle');
         }
-        speed = Math.sqrt(Math.pow(oldPos.x - pos.x, 2) + Math.pow(oldPos.y - pos.y, 2)) / SPEED;
         new Kinetic.Tween({
             node: group,
-            duration: speed,
+            duration: duration,
             x: pos.x * SQUARE,
             y: pos.y * SQUARE,
             onFinish: function () {
@@ -83,6 +86,8 @@ define([
                 group: group,
                 pos: pos
             };
+
+            otherUsersLayer.draw();
         };
         image.src = 'images/users/' + sprites.geek.file;
 

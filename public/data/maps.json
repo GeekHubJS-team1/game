@@ -1,0 +1,20 @@
+{
+	"grass": {
+		"file": "grass.jpg",
+		"doors": {
+			"sand": {
+				"x": 24,
+				"y": 24
+			}
+		}
+	},
+	"sand": {
+		"file": "sand.jpg",
+		"doors": {
+			"grass": {
+				"x": 0,
+				"y": 24
+			}
+		}
+	}
+}

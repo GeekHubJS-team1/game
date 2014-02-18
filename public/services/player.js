@@ -10,12 +10,13 @@ define([
         });
     };
 
-    socket.on('spawn', function (pos, userLogin) {
+    socket.on('spawn', function (userLogin, location, pos) {
         player.emit('spawn', pos, userLogin);
+        player.emit('map', location);
     });
 
-    socket.on('move', function (pos) {
-        player.emit('move', pos);
+    socket.on('move', function (pos, duration) {
+        player.emit('move', pos, duration);
     });
 
     return player;

@@ -13,9 +13,12 @@ require.config({
     }
 });
 require([
+    'services/socket',
     'controllers/ui',
     'controllers/login',
     'controllers/chat',
     'controllers/online',
     'controllers/stage'
-]);
+], function (socket) {
+    socket.start();
+});
