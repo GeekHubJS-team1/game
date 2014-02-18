@@ -18,7 +18,11 @@ define([
               x: '',
               y: ''
             },
-            name: ''
+            MyDuelPosition: {
+              x: '',
+              y: ''
+            },
+            me: ''
         },
         userLayer, image, moving, newX, newY,
         sprite = {setAnimation: function () {}}, // to prevent error when image is not loaded
@@ -57,6 +61,19 @@ define([
         pos.x = x;
         pos.y = y;
         moveStage(speed);
+
+        if ((Math.abs(pos.x - duel.opponent.x) * SQUARE > window.innerWidth ||
+            Math.abs(pos.y - duel.opponent.y) * SQUARE > window.innerHeight) && duel.offerProgress != 0) {
+            duel.offerProgress = 0;
+            $('p.duelInfo').fadeOut();
+        }
+
+        if (Math.abs(pos.x - duel.MyDuelPosition.x) * SQUARE > window.innerWidth ||
+            Math.abs(pos.y - duel.MyDuelPosition.y) * SQUARE > window.innerHeight) {
+            $('li.duelInfo').remove();
+            duel.MyDuelPosition.x =  duel.MyDuelPosition.y = '';
+            Duel.stop(duel.me);
+        }
     }
 
     function moveStage(speed) {
@@ -92,7 +109,7 @@ define([
     });
 
     player.on('spawn', function (pos, userLogin) {
-        duel.name = userLogin;
+        duel.me = userLogin;
         image = new Image();
         image.onload = function () {
             sprite = new Kinetic.Sprite({
@@ -133,17 +150,16 @@ define([
     });
 
     player.on('move', function (pos) {
-        if ((Math.abs(pos.x - duel.opponent.x) * SQUARE > window.innerWidth ||
-            Math.abs(pos.y - duel.opponent.y) * SQUARE > window.innerHeight) && duel.offerProgress != 0) {
-            duel.offerProgress = 0;
-            $('p.duelInfo').fadeOut();
-//            $('li.duelInfo').remove();
-        }
         moveTo(pos.x, pos.y);
     });
 
-    Duel.on('duel:proposition', function (name, pos) {
-        infoBoxes.duel(name);
+    Duel.on('duel:proposition', function (position, me) {
+        infoBoxes.duel(me);
+        duel.MyDuelPosition = position;
+    });
+    Duel.on('duel:stop', function () {
+        duel.offerProgress = 0;
+        console.log(duel.offerProgress);
     });
 
 
@@ -175,7 +191,7 @@ define([
         }
         if (e.keyCode === 32 && duel.offerProgress === 1) {
             if (Math.abs(pos.x -  duel.opponent.x) + Math.abs(pos.y -  duel.opponent.y) <= 2) {
-                Duel.proposition(duel.name, pos);
+                Duel.proposition(duel.opponent, duel.me);
                 $('p.duelInfo').fadeOut();
                 duel.offerProgress++;
             }

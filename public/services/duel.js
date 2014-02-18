@@ -7,13 +7,19 @@ define([
     'EventEmitter'
 ], function (socket, infoBoxes, EventEmitter) {
     var duel = new EventEmitter();
-    duel.proposition = function (name, pos) {
-        socket.emit('duel:proposition', name, pos);
-//        infoBoxes.duel(name);
+    duel.proposition = function (pos, me) {
+        socket.emit('duel:proposition', pos, me);
     };
 
-    socket.on('duel:proposition', function (name, pos) {
-        duel.emit('duel:proposition', name, pos);
+    duel.stop = function (user) {
+        socket.emit('duel:stop', user);
+    };
+
+    socket.on('duel:proposition', function (pos, me) {
+        duel.emit('duel:proposition', pos, me);
+    });
+    socket.on('duel:stop', function () {
+        duel.emit('duel:stop');
     });
 
     return duel;
