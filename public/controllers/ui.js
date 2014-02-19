@@ -3,9 +3,6 @@ define(['jquery', 'controllers/chat', 'controllers/infoBoxes'], function($, chat
         sliderVisible = 6,
         sliderItems = $slider.find('li').size();
 //  Info boxes
-    $('.message .close').on('click', function() {
-        $(this).parent().fadeOut();
-    });
     info.gameOver();
     info.findItem('User', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed');
 

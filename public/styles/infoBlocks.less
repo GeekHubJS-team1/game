@@ -1,3 +1,19 @@
+p.duelInfo {
+  background: rgba(41, 41, 41, 0.7);
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 10px 0;
+  text-align: center;
+  color: #f5eb65;
+  display: none;
+}
+.duelInfo span {
+  color: #8ad3d6;
+}
+
+
 .info {
     position: fixed;
     bottom: 20px;
@@ -23,7 +39,8 @@
     font-weight: normal;
     text-align: center;
     color: #fff;
-    margin: 0 0 20px 0;
+    margin: 0 0 10px 0;
+    line-height: 20px;
 }
 .message p {
     color: #fff;
@@ -44,25 +61,25 @@
 
 /* Game over */
 
-.gameOver {
+.gameOver, li.duelInfo {
 }
 .gameOver h3 span {
     color: #eb6a2b;
 }
-.gameOver ul {
+.gameOver ul, li.duelInfo ul {
     overflow: hidden;
     width: 135px;
     margin: 0 auto;
 }
-.gameOver li:first-child {
+.gameOver li:first-child, li.duelInfo li:first-child {
     margin: 0;
 }
-.gameOver li {
+.gameOver li, li.duelInfo li {
     float: left;
     overflow: hidden;
     margin: 0 0 0 10px;
 }
-.gameOver li a {
+.gameOver li a, li.duelInfo li a {
     font-family: "Open Sans", sans-serif;
     text-transform: uppercase;
     font-weight: bold;
@@ -70,10 +87,10 @@
     padding: 5px 10px;
     display: block;
 }
-.gameOver li.again a {
+.gameOver li.again a, .duelInfo li.yes a {
     background: #eb6a2b;
 }
-.gameOver li.exit a {
+.gameOver li.exit a, .duelInfo li.no a {
     background: #292929;
 }
 

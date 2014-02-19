@@ -18,6 +18,8 @@ define([
         var oldPos = users[user].pos,
             sprite = users[user].sprite,
             group = users[user].group;
+        infoMap.map[oldPos.x][oldPos.y] = '';
+        infoMap.map[pos.x][pos.y] = user;
         if (pos.x > oldPos.x) {
             sprite.setAnimation('right');
         } else if (pos.x < oldPos.x) {

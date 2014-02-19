@@ -1,18 +1,36 @@
 define([
     'jquery',
     'kinetic',
+    'services/duel',
     'services/player',
-    'json!data/sprites.json'
-], function ($, Kinetic, player, sprites) {
+    'json!sprites.json',
+    'services/infoMap',
+    'controllers/infoBoxes'
+], function ($, Kinetic, Duel, player, sprites, infoMap, infoBoxes) {
     var SQUARE = 128,
         MAP_SIZE = 25,
         SPAWN = .1,
+        $GAME_AREA = $('#game-area'),
         keyMove = false,
         userLayer, image, moving,
-    // to prevent error when image is not loaded
+        // to prevent error when image is not loaded
         sprite = {setAnimation: function () {}},
-    // empty tweens
+        // empty tweens
         playerTween, stageTween = playerTween = {finish: function () {}},
+        duel = {
+            offerProgress: 0,
+            opponent: {
+              x: '',
+              y: '',
+              name: ''
+            },
+            MyDuelPosition: {
+              x: '',
+              y: ''
+            },
+            me: ''
+        },
+        newX, newY,
         pos = {x: 0, y: 0};
 
     function moveTo(x, y, duration) {
@@ -43,6 +61,20 @@ define([
         pos.x = x;
         pos.y = y;
         moveStage(duration);
+
+        if ((Math.abs(pos.x - duel.opponent.x) * SQUARE > window.innerWidth ||
+            Math.abs(pos.y - duel.opponent.y) * SQUARE > window.innerHeight) && duel.offerProgress != 0) {
+            duel.offerProgress = 0;
+            $('p.duelInfo').fadeOut();
+        }
+
+        if ((Math.abs(pos.x - duel.MyDuelPosition.x) * SQUARE > window.innerWidth ||
+            Math.abs(pos.y - duel.MyDuelPosition.y) * SQUARE > window.innerHeight) &&
+            duel.MyDuelPosition.x != '' && duel.MyDuelPosition.y != '') {
+            $('li.duelInfo').remove();
+            duel.MyDuelPosition.x =  duel.MyDuelPosition.y = '';
+            Duel.stop(duel.opponent.name);
+        }
     }
 
     function moveStage(duration) {
@@ -86,6 +118,8 @@ define([
 
     player.on('spawn', function (newPos, userLogin) {
         userLayer.removeChildren();
+
+        duel.me = userLogin;
 
         var rect = new Kinetic.Rect({
             x: 0,
@@ -138,12 +172,30 @@ define([
         moveTo(pos.x, pos.y, duration);
     });
 
-    $('#game-area').on('click', function (e) {
-        if ($('#textMessage').is(":focus")) {
-            $('#textMessage').blur();
+    Duel.on('duel:proposition', function (position, me) {
+        infoBoxes.duel(me);
+        duel.MyDuelPosition = position;
+        duel.opponent.name = me;
+        $('.js-stop-duel').on('click', function (e) {
+            e.preventDefault();
+            duel.MyDuelPosition.x =  duel.MyDuelPosition.y = '';
+            Duel.stop(duel.opponent.name);
+        });
+    });
+    Duel.on('duel:stop', function () {
+        duel.offerProgress = 0;
+    });
+
+
+
+
+
+    $GAME_AREA.on('click', function (e) {
+        var $textMess = $('#textMessage');
+        if ($textMess.is( ":focus" )) {
+            $textMess.blur();
         }
-        var stagePos = userLayer.parent.getPosition(),
-            newX, newY;
+        var stagePos = userLayer.parent.getPosition();
         if (moving) {
             return;
         }
@@ -151,10 +203,29 @@ define([
         newY = Math.floor((e.clientY - stagePos.y) / SQUARE);
         player.move(newX, newY);
     });
+    $GAME_AREA.on('dblclick', function (e) {
+        if (infoMap.map[newX][newY] != '' && duel.offerProgress === 0) {
+            $('p.duelInfo').fadeIn();
+            duel.offerProgress++;
+            duel.opponent.x = newX;
+            duel.opponent.y = newY;
+        }
+    });
 
     $(document).on('keydown', function (e) {
         if (moving || $('#textMessage').is(":focus")) {
             return;
+        }
+        if (e.keyCode === 32 && duel.offerProgress === 1) {
+            if (Math.abs(pos.x -  duel.opponent.x) + Math.abs(pos.y -  duel.opponent.y) <= 2) {
+                Duel.proposition(duel.opponent, duel.me);
+                $('p.duelInfo').fadeOut();
+                duel.offerProgress++;
+            }
+        }
+        if (e.keyCode === 27 && duel.offerProgress === 1) {
+                $('p.duelInfo').fadeOut();
+                duel.offerProgress = 0;
         }
         if (e.keyCode === 37 || e.keyCode === 65) {
             player.move(pos.x - 1, pos.y);
