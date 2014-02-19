@@ -3,7 +3,7 @@ define([
     'kinetic',
     'services/duel',
     'services/player',
-    'json!sprites.json',
+    'json!data/sprites.json',
     'services/infoMap',
     'controllers/infoBoxes'
 ], function ($, Kinetic, Duel, player, sprites, infoMap, infoBoxes) {
