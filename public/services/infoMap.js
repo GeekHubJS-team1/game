@@ -6,6 +6,7 @@ define([
         infoMap = new EventEmitter();
 
     socket.on('map', function (newMap) {
+        infoMap.emit('clear');
         infoMap.map = map = newMap;
         map.forEach(function (row, x) {
             row.forEach(function (user, y) {
@@ -23,9 +24,6 @@ define([
     });
     socket.on('user:gone', function (user) {
         infoMap.emit('out', user);
-    });
-    socket.on('spawn', function (user) {
-        infoMap.emit('clear');
     });
     return infoMap;
 });

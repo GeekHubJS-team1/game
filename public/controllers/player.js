@@ -86,6 +86,38 @@ define([
 
     player.on('spawn', function (newPos, userLogin) {
         userLayer.removeChildren();
+
+        var rect = new Kinetic.Rect({
+            x: 0,
+            y: -27,
+            fill: '#004047',
+            opacity: 0.5,
+            width: SQUARE,
+            height: 25,
+            cornerRadius: 5
+        });
+        var userName = new Kinetic.Text({
+            x: 0,
+            y: -20,
+            width: SQUARE,
+            text: userLogin,
+            align: 'center',
+            fontSize: 12,
+            fontFamily: 'PressStart2P',
+            fill: '#8ad3d6'
+        });
+
+        userLayer.add(rect);
+        userLayer.add(userName);
+
+        pos = newPos;
+        // stop tweens
+        playerTween.finish();
+        stageTween.finish();
+        userLayer.setPosition(pos.x * SQUARE, pos.y * SQUARE);
+        moveStage(SPAWN);
+        userLayer.draw();
+
         image = new Image();
         image.onload = function () {
             sprite = new Kinetic.Sprite({
@@ -96,36 +128,7 @@ define([
                 animation: 'idle',
                 animations: sprites.geek.animations
             });
-            var rect = new Kinetic.Rect({
-                x: 0,
-                y: -27,
-                fill: '#004047',
-                opacity: 0.5,
-                width: SQUARE,
-                height: 25,
-                cornerRadius: 5
-            });
-            var userName = new Kinetic.Text({
-                x: 0,
-                y: -20,
-                width: SQUARE,
-                text: userLogin,
-                align: 'center',
-                fontSize: 12,
-                fontFamily: 'PressStart2P',
-                fill: '#8ad3d6'
-            });
-
-            userLayer.add(rect);
-            userLayer.add(userName);
             userLayer.add(sprite);
-
-            pos = newPos;
-            // stop tweens
-            playerTween.finish();
-            stageTween.finish();
-            userLayer.setPosition(pos.x * SQUARE, pos.y * SQUARE);
-            moveStage(SPAWN);
             userLayer.draw();
         };
         image.src = 'images/users/' + sprites.geek.file;
