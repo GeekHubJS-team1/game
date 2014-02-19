@@ -11,12 +11,14 @@ define([
         MAP_SIZE = 25,
         SPEED = 5,
         SPAWN_SPEED = .1,
+        $GAME_AREA = $('#game-area'),
         keyMove = false,
         duel = {
             offerProgress: 0,
             opponent: {
               x: '',
-              y: ''
+              y: '',
+              name: ''
             },
             MyDuelPosition: {
               x: '',
@@ -68,11 +70,12 @@ define([
             $('p.duelInfo').fadeOut();
         }
 
-        if (Math.abs(pos.x - duel.MyDuelPosition.x) * SQUARE > window.innerWidth ||
-            Math.abs(pos.y - duel.MyDuelPosition.y) * SQUARE > window.innerHeight) {
+        if ((Math.abs(pos.x - duel.MyDuelPosition.x) * SQUARE > window.innerWidth ||
+            Math.abs(pos.y - duel.MyDuelPosition.y) * SQUARE > window.innerHeight) &&
+            duel.MyDuelPosition.x != '' && duel.MyDuelPosition.y != '') {
             $('li.duelInfo').remove();
             duel.MyDuelPosition.x =  duel.MyDuelPosition.y = '';
-            Duel.stop(duel.me);
+            Duel.stop(duel.opponent.name);
         }
     }
 
@@ -156,17 +159,25 @@ define([
     Duel.on('duel:proposition', function (position, me) {
         infoBoxes.duel(me);
         duel.MyDuelPosition = position;
+        duel.opponent.name = me;
+        $('.js-stop-duel').on('click', function (e) {
+            e.preventDefault();
+            duel.MyDuelPosition.x =  duel.MyDuelPosition.y = '';
+            Duel.stop(duel.opponent.name);
+        });
     });
     Duel.on('duel:stop', function () {
         duel.offerProgress = 0;
-        console.log(duel.offerProgress);
     });
 
 
 
-    $('#game-area').on('click', function (e) {
-        if ($('#textMessage').is( ":focus" )) {
-            $('#textMessage').blur();
+
+
+    $GAME_AREA.on('click', function (e) {
+        var $textMess = $('#textMessage');
+        if ($textMess.is( ":focus" )) {
+            $textMess.blur();
         }
         var stagePos = userLayer.parent.getPosition();
         if (moving) {
@@ -176,7 +187,7 @@ define([
         newY = Math.floor((e.clientY - stagePos.y) / SQUARE);
         player.move(newX, newY);
     });
-    $(document).on('dblclick', function (e) {
+    $GAME_AREA.on('dblclick', function (e) {
         if (infoMap.map[newX][newY] != '' && duel.offerProgress === 0) {
             $('p.duelInfo').fadeIn();
             duel.offerProgress++;
