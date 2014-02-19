@@ -67,7 +67,6 @@ define([
             duel.offerProgress = 0;
             $('p.duelInfo').fadeOut();
         }
-
         if ((Math.abs(pos.x - duel.MyDuelPosition.x) * SQUARE > window.innerWidth ||
             Math.abs(pos.y - duel.MyDuelPosition.y) * SQUARE > window.innerHeight) &&
             duel.MyDuelPosition.x != '' && duel.MyDuelPosition.y != '') {
@@ -176,7 +175,7 @@ define([
         infoBoxes.duel(me);
         duel.MyDuelPosition = position;
         duel.opponent.name = me;
-        $('.js-stop-duel').on('click', function (e) {
+        $('.js-stop-duel, .js-close-window').on('click', function (e) {
             e.preventDefault();
             duel.MyDuelPosition.x =  duel.MyDuelPosition.y = '';
             Duel.stop(duel.opponent.name);
