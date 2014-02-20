@@ -17,6 +17,7 @@ define([
         });
     });
     socket.on('user:spawn', function (user, pos) {
+        map[pos.x][pos.y] = user;
         infoMap.emit('spawn', user, pos);
     });
     socket.on('user:move', function (user, pos, duration) {

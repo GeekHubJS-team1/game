@@ -99,6 +99,8 @@ define([
     });
 
     infoMap.on('out', function (user) {
+        var pos = users[user].pos
+        infoMap.map[pos.x][pos.y] = '';
         users[user].group.remove();
         otherUsersLayer.draw();
         delete users[user];
