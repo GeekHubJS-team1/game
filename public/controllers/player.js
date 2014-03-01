@@ -171,7 +171,7 @@ define([
 
     player.on('move', function (pos, duration, item) {
         moveTo(pos.x, pos.y, duration);
-        if (item) {
+        if (item && $('.numItems').text() < 10) {
             Items.gotItem(item);
             console.warn(item)
         }

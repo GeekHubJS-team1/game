@@ -14,52 +14,52 @@
     "helmet2" : {
         "file" : "helmet2.png",
         "level" : 2,
-        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
+        "info"  : "<img src='./../images/items/helmet2.png' alt ='helmet2'>"
     },
     "orange" : {
         "file" : "orange.png",
         "level" : 2,
-        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
+        "info"  : "<img src='./../images/items/orange.png' alt ='orange'>"
     },
     "capsicum2" : {
         "file" : "capsicum2.png",
         "level" : 2,
-        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
+        "info"  : "<img src='./../images/items/capsicum2.png' alt ='capsicum2'>"
     },
     "helmet1" : {
         "file" : "helmet1.png",
         "level" : 1,
-        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
+        "info"  : "<img src='./../images/items/helmet1.png' alt ='helmet1'>"
     },
     "bomb" : {
         "file" : "bomb.png",
         "level" : -4,
-        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
+        "info"  : "<img src='./../images/items/bomb.png' alt ='bomb'>"
     },
     "helmet3" : {
         "file" : "helmet3.png",
         "level" : 3,
-        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
+        "info"  : "<img src='./../images/items/helmet3.png' alt ='helmet3'>"
     },
     "medicine" : {
         "file" : "medicine.png",
         "level" : 2,
-        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
+        "info"  : "<img src='./../images/items/medicine.png' alt ='medicine'>"
     },
     "shield" : {
         "file" : "shield.png",
         "level" : 4,
-        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
+        "info"  : "<img src='./../images/items/shield.png' alt ='shield'>"
     },
     "capsicum1" : {
         "file" : "capsicum1.png",
         "level" : 1,
-        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
+        "info"  : "<img src='./../images/items/capsicum1.png' alt ='capsicum1'>"
     },
     "spider" : {
         "file" : "spider.png",
         "level" : -1,
-        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
+        "info"  : "<img src='./../images/items/spider.png' alt ='spider'>"
     }
 
 }

@@ -6,7 +6,7 @@ define([
     var $slider = $('.items ul'),
         sliderVisible = 6;
 //  Info boxes
-    info.gameOver();
+
 
     // Slider buttons
     $('.items .control').on('click', function(event) {
