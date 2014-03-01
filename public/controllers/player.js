@@ -171,13 +171,16 @@ define([
 
     player.on('move', function (pos, duration, item) {
         moveTo(pos.x, pos.y, duration);
-        Items.gotItem(item);
+        if (item) {
+            Items.gotItem(item);
+            console.warn(item)
+        }
     });
 
-    Duel.on('duel:proposition', function (position, me) {
-        infoBoxes.duel(me);
+    Duel.on('duel:proposition', function (position, opponent) {
+        infoBoxes.duel(opponent);
         duel.MyDuelPosition = position;
-        duel.opponent.name = me;
+        duel.opponent.name = opponent;
         $('.js-stop-duel, .js-close-window').on('click', function (e) {
             e.preventDefault();
             duel.MyDuelPosition.x =  duel.MyDuelPosition.y = '';

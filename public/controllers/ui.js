@@ -1,10 +1,12 @@
-define(['jquery', 'controllers/chat', 'controllers/infoBoxes'], function($, chat, info) {
+define([
+    'jquery',
+    'controllers/chat',
+    'controllers/infoBoxes'
+], function($, chat, info) {
     var $slider = $('.items ul'),
-        sliderVisible = 6,
-        sliderItems = $slider.find('li').size();
+        sliderVisible = 6;
 //  Info boxes
     info.gameOver();
-    info.findItem('User', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed');
 
     // Slider buttons
     $('.items .control').on('click', function(event) {
@@ -25,7 +27,7 @@ define(['jquery', 'controllers/chat', 'controllers/infoBoxes'], function($, chat
 
         // change disabled state of arrow buttons
         $('.items .left').toggleClass('controlDisable', !offset);
-        $('.items .right').toggleClass('controlDisable', !(sliderVisible - sliderItems - offset));
+        $('.items .right').toggleClass('controlDisable', !(sliderVisible - $slider.find('li').size() - offset));
 
         // apply slider offset
         $slider.css({'margin-left': offset*39+"px"});

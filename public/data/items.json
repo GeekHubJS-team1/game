@@ -13,43 +13,53 @@
     ],
     "helmet2" : {
         "file" : "helmet2.png",
-        "level" : 2
+        "level" : 2,
+        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
     },
     "orange" : {
         "file" : "orange.png",
-        "level" : 2
+        "level" : 2,
+        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
     },
     "capsicum2" : {
         "file" : "capsicum2.png",
-        "level" : 2
+        "level" : 2,
+        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
     },
     "helmet1" : {
         "file" : "helmet1.png",
-        "level" : 1
+        "level" : 1,
+        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
     },
     "bomb" : {
         "file" : "bomb.png",
-        "level" : -4
+        "level" : -4,
+        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
     },
     "helmet3" : {
         "file" : "helmet3.png",
-        "level" : 3
+        "level" : 3,
+        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
     },
     "medicine" : {
         "file" : "medicine.png",
-        "level" : 2
+        "level" : 2,
+        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
     },
     "shield" : {
         "file" : "shield.png",
-        "level" : 4
+        "level" : 4,
+        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
     },
     "capsicum1" : {
         "file" : "capsicum1.png",
-        "level" : 1
+        "level" : 1,
+        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
     },
     "spider" : {
         "file" : "spider.png",
-        "level" : -1
+        "level" : -1,
+        "info"  : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed"
     }
 
 }

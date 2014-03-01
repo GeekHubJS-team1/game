@@ -30,16 +30,15 @@ define([
             $infoBlock.fadeIn();
             this.closeWindow($infoBlock);
         },
-        findItem: function (user, infoItem) {
+        findItem: function (infoItem) {
             var $infoBlock = this.template();
             $infoBlock.addClass('findItem');
-            $infoBlock.find('h3').html('<span></span> find an item');
-            $infoBlock.find('h3 span').text(user);
+            $infoBlock.find('h3').html('<span>You</span> find an item');
             $infoBlock.find('h3').after('<p>' + infoItem + '</p>');
             $infoBlock.fadeOut();
             $('ul.info').append($infoBlock);
             $infoBlock.fadeIn();
-            setTimeout($infoBlock.remove.bind($infoBlock), 5000);
+            setTimeout($infoBlock.remove.bind($infoBlock), 6000);
         },
         duel: function (user) {
             var $infoBlock = this.template();

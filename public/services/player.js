@@ -25,7 +25,5 @@ define([
         player.emit('duel:proposition', name);
     });
 
-
-
     return player;
 });
