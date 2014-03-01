@@ -20,11 +20,15 @@ define([
 
     socket.on('move', function (pos, duration, item) {
         player.emit('move', pos, duration);
-        item && player.emit('item', item);
+        item && player.emit('item', item, true);
     });
 
     socket.on('level', function (level) {
         player.emit('level', level);
+    });
+
+    socket.on('item', function (item) {
+        player.emit('item', item);
     });
 
     socket.on('duel:proposition', function (name) {

@@ -14,7 +14,7 @@ define([
     /**
      * Add item to slider and show message
      */
-    function gotItem(item) {
+    function gotItem(item, found) {
         var img = '<img src="/images/items/' + itemsData[item].file + '" alt="' + item + '">';
         if (itemsData[item].level > 0) {
             var $newItem = $('<li>' + img + '</li>');
@@ -25,7 +25,7 @@ define([
             }
             $numItems.text(numItems);
         }
-        infoBoxes.findItem(img);
+        found && infoBoxes.findItem(img);
     }
     // Slider buttons
     $('.items .control').on('click', function (event) {
@@ -48,10 +48,10 @@ define([
         $slider.data('offset', offset);
     });
 
-    player.on('item', function (item) {
+    player.on('item', function (item, found) {
         if (item && $('.numItems').text() < 10) {
-            gotItem(item);
-            console.warn(item)
+            gotItem(item, found);
+            found && console.warn(item);
         }
     });
 
