@@ -171,7 +171,7 @@ define([
 
     player.on('move', function (pos, duration, item) {
         moveTo(pos.x, pos.y, duration);
-        Items.emit('item:got', item);
+        Items.gotItem(item);
     });
 
     Duel.on('duel:proposition', function (position, me) {
