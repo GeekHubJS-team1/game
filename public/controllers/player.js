@@ -96,6 +96,8 @@ define([
         } else if (((pos.y + 2) * SQUARE + stage.y) > window.innerHeight) {
             stage.y = -(pos.y + 2) * SQUARE + window.innerHeight;
         }
+        stage.x = Math.floor(stage.x);
+        stage.y = Math.floor(stage.y);
 
         if (stagePos.x != stage.x || stagePos.y != stage.y) {
             stageTween = new Kinetic.Tween({

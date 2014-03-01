@@ -10,23 +10,24 @@ define([
     var layer = new Kinetic.Layer();
 
     player.on('map', function (mapName) {
-        var imageDoor;
+        var imageDoor, image;
         layer.removeChildren();
-        var image = new Image();
+        image = new Image();
         image.onload = function () {
             var rect = new Kinetic.Rect({
-                x: -MARGIN_SIZE,
-                y: -MARGIN_SIZE,
-                width: MAP_SIZE * 256 + MARGIN_SIZE * 2,
-                height: MAP_SIZE * 256 + MARGIN_SIZE * 2,
+                x: -MARGIN_SIZE / 2,
+                y: -MARGIN_SIZE / 2,
+                width: MAP_SIZE * SQUARE + MARGIN_SIZE,
+                height: MAP_SIZE * SQUARE + MARGIN_SIZE,
                 fillPatternImage: image
             });
             var bounds = new Kinetic.Rect({
                 x: 0,
                 y: 0,
-                width: MAP_SIZE * 256,
-                height: MAP_SIZE * 256,
-                stroke: '#ff0000'
+                width: MAP_SIZE * SQUARE,
+                height: MAP_SIZE * SQUARE,
+                stroke: '#ff0000',
+                strokeWidth: 1
             });
             layer.add(rect);
             layer.add(bounds);
@@ -41,10 +42,10 @@ define([
                         pos = doors[door];
                         layer.add(new Kinetic.Image({
                             image: imageDoor,
-                            x: pos.x * SQUARE * 2,
-                            y: pos.y * SQUARE * 2,
-                            width: SQUARE * 2,
-                            height: SQUARE * 2
+                            x: pos.x * SQUARE,
+                            y: pos.y * SQUARE,
+                            width: SQUARE,
+                            height: SQUARE
                         }));
                         layer.draw();
                     }
@@ -56,6 +57,5 @@ define([
         image.src = 'images/bg/' + maps[mapName].file;
     });
 
-    layer.setScale(.5, .5);
     return layer;
 });
