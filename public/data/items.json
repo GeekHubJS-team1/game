@@ -1,0 +1,55 @@
+{
+    "names" : [
+        "helmet2",
+        "orange",
+        "capsicum2",
+        "helmet1",
+        "bomb",
+        "helmet3",
+        "medicine",
+        "shield",
+        "capsicum1",
+        "spider"
+    ],
+    "helmet2" : {
+        "file" : "helmet2.png",
+        "level" : 2
+    },
+    "orange" : {
+        "file" : "orange.png",
+        "level" : 2
+    },
+    "capsicum2" : {
+        "file" : "capsicum2.png",
+        "level" : 2
+    },
+    "helmet1" : {
+        "file" : "helmet1.png",
+        "level" : 1
+    },
+    "bomb" : {
+        "file" : "bomb.png",
+        "level" : -4
+    },
+    "helmet3" : {
+        "file" : "helmet3.png",
+        "level" : 3
+    },
+    "medicine" : {
+        "file" : "medicine.png",
+        "level" : 2
+    },
+    "shield" : {
+        "file" : "shield.png",
+        "level" : 4
+    },
+    "capsicum1" : {
+        "file" : "capsicum1.png",
+        "level" : 1
+    },
+    "spider" : {
+        "file" : "spider.png",
+        "level" : -1
+    }
+
+}
