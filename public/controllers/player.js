@@ -6,7 +6,7 @@ define([
     'json!data/sprites.json',
     'services/infoMap',
     'controllers/infoBoxes',
-    'services/items'
+    'controllers/items'
 ], function ($, Kinetic, Duel, player, sprites, infoMap, infoBoxes, Items) {
     var SQUARE = 128,
         MAP_SIZE = 25,
