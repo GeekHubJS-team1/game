@@ -19,16 +19,19 @@ module.exports = function (grunt) {
             }
         },
         less: {
-            options: {
-                paths: ["public/styles"],
-                compress: true,
-                sourceMap: true,
-                sourceMapFilename: "public/all.min.css.map",
-                sourceMapBasepath: 'public'
-            },
-            files: {
-                "public/all.min.css": ["public/styles/all.less"]
+            production: {
+                options: {
+                    paths: ["public/styles"],
+                    compress: true,
+                    sourceMap: true,
+                    sourceMapFilename: "public/all.min.css.map",
+                    sourceMapBasepath: 'public'
+                },
+                files: {
+                    "public/all.min.css": "public/styles/all.less"
+                }
             }
+
         }
     });
     grunt.loadNpmTasks('grunt-contrib-requirejs');

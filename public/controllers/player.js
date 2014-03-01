@@ -7,7 +7,7 @@ define([
     'services/infoMap',
     'controllers/infoBoxes',
     'controllers/items'
-], function ($, Kinetic, Duel, player, sprites, infoMap, infoBoxes, Items) {
+], function ($, Kinetic, Duel, player, sprites, infoMap, infoBoxes) {
     var SQUARE = 128,
         MAP_SIZE = 25,
         SPAWN = .1,
@@ -116,9 +116,8 @@ define([
         height: SQUARE
     });
 
-    player.on('spawn', function (newPos, userLogin, level) {
+    player.on('spawn', function (newPos, userLogin) {
         userLayer.removeChildren();
-        $('.numLevel').text(level);
 
         duel.me = userLogin;
 
@@ -169,12 +168,12 @@ define([
         image.src = 'images/users/' + sprites.geek.file;
     });
 
-    player.on('move', function (pos, duration, item) {
+    player.on('move', function (pos, duration) {
         moveTo(pos.x, pos.y, duration);
-        if (item && $('.numItems').text() < 10) {
-            Items.gotItem(item);
-            console.warn(item)
-        }
+    });
+
+    player.on('level', function (level) {
+        $('.numLevel').text(level);
     });
 
     Duel.on('duel:proposition', function (position, opponent) {

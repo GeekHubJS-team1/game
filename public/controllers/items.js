@@ -1,7 +1,8 @@
 define([
     'controllers/infoBoxes',
+    'services/player',
     'json!data/items.json'
-], function (infoBoxes, itemsData) {
+], function (infoBoxes, player, itemsData) {
     function gotItem(item) {
         var $numLevel = $('.numLevel'),
             $numItems = $('.numItems');
@@ -19,6 +20,13 @@ define([
         infoBoxes.findItem(itemsData[item].info);
 
     }
+
+    player.on('item', function (item) {
+        if (item && $('.numItems').text() < 10) {
+            gotItem(item);
+            console.warn(item)
+        }
+    });
 
     return  {
         gotItem : gotItem
