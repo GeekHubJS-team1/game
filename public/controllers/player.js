@@ -5,8 +5,7 @@ define([
     'services/player',
     'json!data/sprites.json',
     'services/infoMap',
-    'controllers/infoBoxes',
-    'controllers/items'
+    'controllers/infoBoxes'
 ], function ($, Kinetic, Duel, player, sprites, infoMap, infoBoxes) {
     var SQUARE = 128,
         MAP_SIZE = 25,
@@ -189,10 +188,6 @@ define([
     Duel.on('duel:stop', function () {
         duel.offerProgress = 0;
     });
-
-
-
-
 
     $GAME_AREA.on('click', function (e) {
         var $textMess = $('#textMessage');

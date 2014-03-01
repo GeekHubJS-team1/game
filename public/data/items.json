@@ -13,53 +13,42 @@
     ],
     "helmet2" : {
         "file" : "helmet2.png",
-        "level" : 2,
-        "info"  : "<img src='./../images/items/helmet2.png' alt ='helmet2'>"
+        "level" : 2
     },
     "orange" : {
         "file" : "orange.png",
-        "level" : 2,
-        "info"  : "<img src='./../images/items/orange.png' alt ='orange'>"
+        "level" : 2
     },
     "capsicum2" : {
         "file" : "capsicum2.png",
-        "level" : 2,
-        "info"  : "<img src='./../images/items/capsicum2.png' alt ='capsicum2'>"
+        "level" : 2
     },
     "helmet1" : {
         "file" : "helmet1.png",
-        "level" : 1,
-        "info"  : "<img src='./../images/items/helmet1.png' alt ='helmet1'>"
+        "level" : 1
     },
     "bomb" : {
         "file" : "bomb.png",
-        "level" : -4,
-        "info"  : "<img src='./../images/items/bomb.png' alt ='bomb'>"
+        "level" : -4
     },
     "helmet3" : {
         "file" : "helmet3.png",
-        "level" : 3,
-        "info"  : "<img src='./../images/items/helmet3.png' alt ='helmet3'>"
+        "level" : 3
     },
     "medicine" : {
         "file" : "medicine.png",
-        "level" : 2,
-        "info"  : "<img src='./../images/items/medicine.png' alt ='medicine'>"
+        "level" : 2
     },
     "shield" : {
         "file" : "shield.png",
-        "level" : 4,
-        "info"  : "<img src='./../images/items/shield.png' alt ='shield'>"
+        "level" : 4
     },
     "capsicum1" : {
         "file" : "capsicum1.png",
-        "level" : 1,
-        "info"  : "<img src='./../images/items/capsicum1.png' alt ='capsicum1'>"
+        "level" : 1
     },
     "spider" : {
         "file" : "spider.png",
-        "level" : -1,
-        "info"  : "<img src='./../images/items/spider.png' alt ='spider'>"
+        "level" : -1
     }
-
 }
