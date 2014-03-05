@@ -12,7 +12,7 @@ define([
         SPAWN = .1,
         $GAME_AREA = $('#game-area'),
         keyMove = false,
-        userLayer, image, moving,
+        userLayer, image, moving, gameOver = false,
         // to prevent error when image is not loaded
         sprite = {setAnimation: function () {}},
         // empty tweens
@@ -32,7 +32,6 @@ define([
         },
         newX, newY,
         pos = {x: 0, y: 0};
-
     function moveTo(x, y, duration) {
         console.log('new position', x, y);
         if (x > pos.x) {
@@ -170,11 +169,15 @@ define([
     });
 
     player.on('move', function (pos, duration) {
+        gameOver = false;
         moveTo(pos.x, pos.y, duration);
     });
 
     player.on('level', function (level) {
         $('.numLevel').text(level);
+        if (level <=0) {
+            gameOver = true;
+        }
     });
 
     Duel.on('duel:proposition', function (position, opponent) {
@@ -197,7 +200,7 @@ define([
             $textMess.blur();
         }
         var stagePos = userLayer.parent.getPosition();
-        if (moving) {
+        if (moving || gameOver) {
             return;
         }
         newX = Math.floor((e.clientX - stagePos.x) / SQUARE);
@@ -205,7 +208,10 @@ define([
         player.move(newX, newY);
     });
     $GAME_AREA.on('dblclick', function (e) {
-        if (infoMap.map[newX][newY] != '' && duel.offerProgress === 0) {
+        if (gameOver) {
+            return;
+        }
+        if (newX < 26 && newY < 26 && infoMap.map[newX][newY] != '' && duel.offerProgress === 0) {
             $('p.duelInfo').fadeIn();
             duel.offerProgress++;
             duel.opponent.x = newX;
@@ -214,7 +220,7 @@ define([
     });
 
     $(document).on('keydown', function (e) {
-        if (moving || $('#textMessage').is(":focus")) {
+        if (moving || $('#textMessage').is(":focus") || gameOver === true) {
             return;
         }
         if (e.keyCode === 32 && duel.offerProgress === 1) {

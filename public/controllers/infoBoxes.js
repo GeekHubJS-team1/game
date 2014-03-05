@@ -13,7 +13,9 @@ define([
         },
         closeWindow: function (infoBox) {
             infoBox.find('.js-close-window').on('click', function(e) {
-                e.preventDefault();
+                if (!infoBox.hasClass('gameOver')) {
+                    e.preventDefault();
+                }
                 var $window  = $(this).parents('.message');
                 $window.fadeOut(function() {
                     $window.remove();
@@ -24,11 +26,16 @@ define([
             var $infoBlock = this.template();
             $infoBlock.addClass('gameOver');
             $infoBlock.find('h3').html('<span>Game over</span> try again?');
-            $infoBlock.find('h3').after('<ul><li class="again"><a href="#">Yes</a></li><li class="exit"><a href="#" class="js-close-window">No way</a></li></ul>');
+            $infoBlock.find('h3').after('<ul><li class="again"><a href="#">Yes</a></li><li class="exit"><a href="/logout" class="js-close-window">No way</a></li></ul>');
             $infoBlock.fadeOut();
             $('ul.info').append($infoBlock);
             $infoBlock.fadeIn();
             this.closeWindow($infoBlock);
+            $infoBlock.find('.again a').on('click', function () {
+                $infoBlock.fadeOut(function() {
+                    $infoBlock.remove();
+                });
+            });
         },
         findItem: function (infoItem) {
             var $infoBlock = this.template();

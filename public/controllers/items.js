@@ -2,8 +2,9 @@ define([
     'jquery',
     'controllers/infoBoxes',
     'services/player',
+    'services/infoMap',
     'json!data/items.json'
-], function ($, infoBoxes, player, itemsData) {
+], function ($, infoBoxes, player, infoMap, itemsData) {
     var $slider = $('.items ul'),
         $numLevel = $('.numLevel'),
         $numItems = $('.numItems'),
@@ -59,7 +60,9 @@ define([
         var $this = $(this);
         player.activateItem($this.index());
         $this.remove();
-        $numItems.text(--numItems);
+        if ($numItems.text() > 0) {
+            $numItems.text(--numItems);
+        }
         toggleArrows();
     });
 
@@ -76,11 +79,24 @@ define([
         items.forEach(function (item) {
             gotItem(item);
         });
+        $numItems.text(numItems);
     });
 
     player.on('level', function (level) {
         if (level <= 0) {
+            var gameOver = true;
             infoBoxes.gameOver();
+            $('.gameOver .again a').on('click', function () {
+                var x, y;
+                while (gameOver) {
+                    x = Math.floor(Math.random()*26);
+                    y = Math.floor(Math.random()*26);
+                    if (infoMap.map[x][y] == '') {
+                        player.move(Math.floor(Math.random()*26), Math.floor(Math.random()*26));
+                        gameOver = false;
+                    }
+                }
+            });
         }
     });
 
