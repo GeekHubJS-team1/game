@@ -19,14 +19,20 @@ define([
         if (itemsData[item].level > 0) {
             var $newItem = $('<li>' + img + '</li>');
             $('.items ul').append($newItem);
-            numItems++;
-            if (!(sliderVisible - numItems - offset + 1)) {
-                $('.items .control.right').removeClass('controlDisable');
-            }
-            $numItems.text(numItems);
+            $numItems.text(++numItems);
+            toggleArrows();
         }
         found && infoBoxes.findItem(img);
     }
+
+    /**
+     * change disabled state of arrow buttons
+     */
+    function toggleArrows() {
+        $('.items .left').toggleClass('controlDisable', offset >= 0);
+        $('.items .right').toggleClass('controlDisable', sliderVisible >= numItems + offset);
+    }
+
     // Slider buttons
     $('.items .control').on('click', function (event) {
         var $this = $(this);
@@ -40,19 +46,32 @@ define([
         } else {
             offset++;
         }
-        // change disabled state of arrow buttons
-        $('.items .left').toggleClass('controlDisable', !offset);
-        $('.items .right').toggleClass('controlDisable', !(sliderVisible - numItems - offset));
+        toggleArrows();
         // apply slider offset
         $slider.css({'margin-left': offset * 39 + "px"});
-        $slider.data('offset', offset);
     });
 
-    player.on('item', function (item, found) {
-        if (item && $('.numItems').text() < 10) {
-            gotItem(item, found);
-            found && console.warn(item);
-        }
+    $('.items').on('click', 'li', function () {
+        var $this = $(this);
+        player.activateItem($this.index());
+        $this.remove();
+        $numItems.text(--numItems);
+        toggleArrows();
+    });
+
+    player.on('item', function (item) {
+        gotItem(item, true);
+    });
+
+    player.on('items', function (items) {
+        offset = numItems = 0;
+        $('.items .control').addClass('controlDisable');
+        $slider.css({'margin-left': 0});
+        $slider.empty();
+
+        items.forEach(function (item) {
+            gotItem(item);
+        });
     });
 
     player.on('level', function (level) {

@@ -12,6 +12,10 @@ define([
         });
     };
 
+    player.activateItem = function (index) {
+        socket.emit('item:activate', index);
+    };
+
     socket.on('spawn', function (userLogin, location, pos, level) {
         player.emit('spawn', pos, userLogin);
         player.emit('map', location);
@@ -23,12 +27,16 @@ define([
         item && player.emit('item', item, true);
     });
 
+    socket.on('item:found', function (item) {
+        player.emit('item', item, true);
+    });
+
     socket.on('level', function (level) {
         player.emit('level', level);
     });
 
-    socket.on('item', function (item) {
-        player.emit('item', item);
+    socket.on('items', function (items) {
+        player.emit('items', items);
     });
 
     socket.on('duel:proposition', function (name) {
