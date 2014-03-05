@@ -11,6 +11,10 @@ define([
         offset = 0,
         numItems = 0;
 
+    function gameOver () {
+
+    }
+
     /**
      * Add item to slider and show message
      */
@@ -22,7 +26,7 @@ define([
             $numItems.text(++numItems);
             toggleArrows();
         }
-        found && infoBoxes.findItem(img);
+        found && infoBoxes.findItem(img+'level: '+itemsData[item].level);
     }
 
     /**

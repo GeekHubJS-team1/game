@@ -40,6 +40,10 @@ define([
         if (msg.user === 'me') {
             $item.find('.user').addClass('me');
         }
+        if (!chatCtrl.visible && msg.state != 'JOINED!' && msg.state != 'LEFT :(' ) {
+            $('.newMessage').fadeIn();
+
+        }
         $item.find('.state').text(msg.state);
         $item.find('.date').text(time);
         $item.find('p').text(msg.message);

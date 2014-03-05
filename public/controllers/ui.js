@@ -11,6 +11,7 @@ define([
             chat.hide();
         } else {
             chat.show();
+            $('.newMessage').fadeOut();
         }
     });
 });
