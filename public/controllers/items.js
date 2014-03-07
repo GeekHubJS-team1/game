@@ -3,8 +3,9 @@ define([
     'controllers/infoBoxes',
     'services/player',
     'services/infoMap',
-    'json!data/items.json'
-], function ($, infoBoxes, player, infoMap, itemsData) {
+    'json!data/items.json',
+    'controllers/tooltip'
+], function ($, infoBoxes, player, infoMap, itemsData, tooltip) {
     var $slider = $('.items ul'),
         $numLevel = $('.numLevel'),
         $numItems = $('.numItems'),
@@ -64,6 +65,12 @@ define([
             $numItems.text(--numItems);
         }
         toggleArrows();
+    });
+
+    $slider.on('mouseover', 'img', function () {
+        tooltip.show(this.alt, 'level: ' + itemsData[this.alt].level);
+    }).on('mouseout', 'img', function () {
+        tooltip.hide();
     });
 
     player.on('item', function (item) {
