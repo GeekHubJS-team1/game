@@ -69,7 +69,7 @@ define([
 
     $slider.on('mouseover', 'img', function () {
         tooltip.show(this.alt, 'level: ' + itemsData[this.alt].level);
-    }).on('mouseout', 'img', function () {
+    }).on('mouseout click', 'img', function () {
         tooltip.hide();
     });
 
