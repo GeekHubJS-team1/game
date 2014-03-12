@@ -192,7 +192,7 @@ define([
         $('.duelInfo .yes a').on('click', function (e) {
             e.preventDefault();
             duel.offerProgress = 0;
-            var $window = $('.duelInfo');
+            var $window = $('li.duelInfo');
             $window.fadeOut(function() {
                 $window.remove();
             });
