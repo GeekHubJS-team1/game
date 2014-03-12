@@ -10,6 +10,9 @@ define([
     duel.proposition = function (pos, opponent) {
         socket.emit('duel:proposition', pos, opponent);
     };
+    duel.finish = function (opponent) {
+        socket.emit('duel:finish', opponent);
+    };
 
     duel.stop = function (user) {
         socket.emit('duel:stop', user);

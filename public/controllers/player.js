@@ -189,6 +189,15 @@ define([
             duel.MyDuelPosition.x =  duel.MyDuelPosition.y = '';
             Duel.stop(duel.opponent.name);
         });
+        $('.duelInfo .yes a').on('click', function (e) {
+            e.preventDefault();
+            duel.offerProgress = 0;
+            var $window = $('.duelInfo');
+            $window.fadeOut(function() {
+                $window.remove();
+            });
+            Duel.finish(opponent);
+        });
     });
     Duel.on('duel:stop', function () {
         duel.offerProgress = 0;
