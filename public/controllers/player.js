@@ -202,6 +202,12 @@ define([
     Duel.on('duel:stop', function () {
         duel.offerProgress = 0;
     });
+    Duel.on('duel:won', function (user, level) {
+        infoBoxes.duelWon(user, level);
+    });
+    Duel.on('duel:lost', function (user) {
+        infoBoxes.duelLost(user);
+    });
 
     $GAME_AREA.on('click', function (e) {
         var $textMess = $('#textMessage');

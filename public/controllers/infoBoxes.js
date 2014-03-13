@@ -56,6 +56,26 @@ define([
             $('ul.info').append($infoBlock);
             $infoBlock.fadeIn();
             this.closeWindow($infoBlock);
+        },
+        duelWon: function (user, level) {
+            var $infoBlock = this.template();
+            $infoBlock.addClass('duelInfo');
+            $infoBlock.find('h3').html('You won duel with <span></span>');
+            $infoBlock.find('h3 span').text(user);
+            $infoBlock.find('h3').after('<p>you got +<span></span> level</p>');
+            $infoBlock.find('p span').text(level);
+            $('ul.info').append($infoBlock);
+            $infoBlock.fadeIn();
+            setTimeout($infoBlock.remove.bind($infoBlock), 6000);
+        },
+        duelLost: function (user) {
+            var $infoBlock = this.template();
+            $infoBlock.addClass('duelInfo');
+            $infoBlock.find('h3').html('You lost duel with <span></span>');
+            $infoBlock.find('h3 span').text(user);
+            $('ul.info').append($infoBlock);
+            $infoBlock.fadeIn();
+            setTimeout($infoBlock.remove.bind($infoBlock), 6000);
         }
     }
 });

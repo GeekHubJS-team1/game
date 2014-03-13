@@ -1,6 +1,3 @@
-/**
- * Created by User on 14.02.14.
- */
 define([
     'services/socket',
     'controllers/infoBoxes',
@@ -23,6 +20,12 @@ define([
     });
     socket.on('duel:stop', function () {
         duel.emit('duel:stop');
+    });
+    socket.on('duel:won', function (user, level) {
+        duel.emit('duel:won', user, level);
+    });
+    socket.on('duel:lost', function (user) {
+        duel.emit('duel:lost', user);
     });
 
     return duel;
