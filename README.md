@@ -1,6 +1,6 @@
 GAME for GEEKS
 ====
-Build in (month day), 2014
+Build on March 15, 2014
 
 This game is a product of Geekhub Javascript team.
 Join to the command of geeks!
