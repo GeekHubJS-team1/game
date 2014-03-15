@@ -31,10 +31,18 @@ module.exports = function (grunt) {
                     "public/all.min.css": "public/styles/all.less"
                 }
             }
-
+        },
+        processhtml: {
+            dist: {
+                files: {
+                    'public/all.html': ['public/index.html']
+                }
+            }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-processhtml');
     grunt.registerTask('default', ["requirejs", "less"]);
+    grunt.registerTask('build', ["requirejs", "less", "processhtml"]);
 };
