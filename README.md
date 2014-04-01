@@ -8,4 +8,4 @@ Pick up items which protect you or increase your level.
 Compete with your friends and arrange duels with them.
 Chat with other players to make your game more interesting.
 
-Powered by Sergey Aksenov, Vladimir Fialkovskiy, Viktor Urbanas under the guidance of Fred Cox.
+Powered by Sergey Aksenov, Viktor Urbanas under the guidance of Fred Cox.
